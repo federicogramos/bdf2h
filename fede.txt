@@ -1,3 +1,12 @@
+// Bitmap font structure.
+typedef struct {
+	int width;
+	int height;
+	int chars;
+} bmp_font;
+
+bmp_font font = { 8, 16, 256 };
+
 static const unsigned char font_bitmap[] = {
 //   0 $00 'uni0000'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
@@ -4608,13 +4617,3 @@ static const unsigned char font_bitmap[] = {
 	XXXX____,
 	________,
 };
-
-	/// bitmap font structure
-const struct bitmap_font font = {
-	.Width = 8, .Height = 16,
-	.Chars = 256,
-	.Widths = __font_widths__,
-	.Index = __font_index__,
-	.Bitmap = __font_bitmap__,
-};
-

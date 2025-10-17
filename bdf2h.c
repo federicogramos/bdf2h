@@ -13,7 +13,8 @@
 #include <string.h>
 #include <limits.h>
 
-void read_bdf(FILE * bdf, FILE * out, const char *name);
+
+void read_bdf(FILE * bdf, FILE * out, char *name);
 
 
 //==============================================================================
@@ -21,7 +22,7 @@ void read_bdf(FILE * bdf, FILE * out, const char *name);
 //==============================================================================
 
 int main() {
-	const char *name;
+	char *name;
 	name = "font";
 
 	read_bdf(stdin, stdout, name);
@@ -30,32 +31,33 @@ int main() {
 }
 
 
+//==============================================================================
+// info | defines struct and font info
+//==============================================================================
+//	out
+//	name font variable name in C source file
+//	width character width of font
+//	height character height of font
+//	chars number of characters
+//==============================================================================
 
+void info(FILE *out, char *name, int w, int h, int chars) {
+	fprintf(out, "// Bitmap font structure.\n");
+	fprintf(out, "typedef struct {\n");
+	fprintf(out, "\tint width;\n");
+	fprintf(out, "\tint height;\n");
+	fprintf(out, "\tint chars;\n");
+	fprintf(out, "} bmp_font;\n\n");
 
-///	Print footer for c file.
-///
-///	@param out		file stream for output
-///	@param name		font variable name in C source file
-///	@param width		character width of font
-///	@param height		character height of font
-///	@param chars		number of characters in font
-///
-void footer(FILE * out, const char *name, int width, int height, int chars) {
-	fprintf(out, "};\n\n");
-	fprintf(out,
-	"\t/// bitmap font structure\n" "const struct bitmap_font %s = {\n",
-	name);
-	fprintf(out, "\t.Width = %d, .Height = %d,\n", width, height);
-	fprintf(out, "\t.Chars = %d,\n", chars);
-
-	fprintf(out, "\t.Widths = __%s_widths__,\n", name);
-	fprintf(out, "\t.Index = __%s_index__,\n", name);
-	fprintf(out, "\t.Bitmap = __%s_bitmap__,\n", name);
-	fprintf(out, "};\n\n");
+	fprintf(out, "bmp_font %s = { %d, %d, %d };\n\n", name, w, h, chars);
 }
 
+
 //==============================================================================
-void DumpCharacter(FILE * out, unsigned char *bitmap, int fontwidth, int fontheight, int fontyoffset, int charheight, int charyoffset) {
+// processChar
+//==============================================================================
+
+void processChar(FILE * out, unsigned char *bitmap, int fontwidth, int fontheight, int fontyoffset, int charheight, int charyoffset) {
 	int x;
 	int y;
 	int c;
@@ -124,7 +126,7 @@ void DumpCharacter(FILE * out, unsigned char *bitmap, int fontwidth, int fonthei
 ///
 ///	@returns converted integer
 ///
-static inline int Hex2Int(const char *p) {
+static inline int Hex2Int(char *p) {
 	if (*p <= '9') {
 	return *p - '0';
 	} else if (*p <= 'F') {
@@ -165,6 +167,7 @@ void RotateBitmap(unsigned char *bitmap, int shift, int width, int height)
 }
 
 
+
 ///
 ///	Read BDF font file.
 ///
@@ -174,7 +177,7 @@ void RotateBitmap(unsigned char *bitmap, int shift, int width, int height)
 ///
 ///	@todo bbx isn't used to correct character position in bitmap
 ///
-void read_bdf(FILE * bdf, FILE * out, const char *name) {
+void read_bdf(FILE * bdf, FILE * out, char *name) {
 	char linebuf[1024];
 	char *s;
 	char *p;
@@ -227,9 +230,9 @@ void read_bdf(FILE * bdf, FILE * out, const char *name) {
 	}
 	}
 
-	//
+	info(out, name, fontboundingbox_width, fontboundingbox_height, chars);
+
 	//	Some checks.
-	//
 	if (fontboundingbox_width <= 0 || fontboundingbox_height <= 0) {
 	fprintf(stderr, "Need to know the character size\n");
 	exit(-1);
@@ -239,9 +242,7 @@ void read_bdf(FILE * bdf, FILE * out, const char *name) {
 	exit(-1);
 	}
 
-	//
 	//	Allocate tables
-	//
 	width_table = malloc(chars * sizeof(*width_table));
 	if (!width_table) {
 	fprintf(stderr, "Out of memory\n");
@@ -335,7 +336,7 @@ void read_bdf(FILE * bdf, FILE * out, const char *name) {
 			fontboundingbox_height);
 		}
 
-		DumpCharacter(out, bitmap, fontboundingbox_width,
+		processChar(out, bitmap, fontboundingbox_width,
 		fontboundingbox_height, fontboundingbox_yoff, bbh, bby);
 		scanline = -1;
 		width = INT_MIN;
@@ -365,8 +366,9 @@ void read_bdf(FILE * bdf, FILE * out, const char *name) {
 	}
 	}
 
+	fprintf(out, "};\n"); // Cierre de corchete arreglo.
 
-	footer(out, name, fontboundingbox_width, fontboundingbox_height, chars);
+
 }
 
 
