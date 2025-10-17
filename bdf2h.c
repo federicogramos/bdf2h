@@ -1,6 +1,12 @@
-// Bitmap Distribution Format (BDF) stores a bitmap font.
-// uso:
+//==============================================================================
+// bdf2h.c
+//==============================================================================
+// Bitmap Distribution Format (BDF) stores a bitmap font. This will convert it t
+// o a C header file.
+// Uso:
 // ./bdf2h < input.bdf > out.h
+//==============================================================================
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,6 +17,9 @@ void read_bdf(FILE * bdf, FILE * out, const char *name);
 
 
 //==============================================================================
+//
+//==============================================================================
+
 int main() {
 	const char *name;
 	name = "font";
@@ -21,16 +30,7 @@ int main() {
 }
 
 
-///
-///	Print header for c file.
-///
-///	@param out	file stream for output
-///	@param name	font variable name in C source file
-///
-void Header(FILE * out, const char *name) {
-	fprintf(out,
-	"static const unsigned char %s_bitmap[] = {\n", name);
-}
+
 
 ///	Print footer for c file.
 ///
@@ -260,7 +260,7 @@ void read_bdf(FILE * bdf, FILE * out, const char *name) {
 	exit(-1);
 	}
 
-	Header(out, name);
+	fprintf(out, "static const unsigned char %s_bitmap[] = {\n", name);// Hdr.
 
 	scanline = -1;
 	n = 0;
