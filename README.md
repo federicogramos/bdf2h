@@ -3,7 +3,7 @@ Given a BFD font file, it outputs a C .h file with bitmap font definition.
 
 # Requiere instalar fontforge
 
-`` Sudo apt install fontforge
+``sudo apt install fontforge``
 
 # Procedure to obtain .h bitmap font definition out of a .ttf
 
