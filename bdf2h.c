@@ -42,6 +42,7 @@ int main() {
 //==============================================================================
 
 void info(FILE *out, char *name, int w, int h, int chars) {
+
 	fprintf(out, "// Bitmap font structure.\n");
 	fprintf(out, "typedef struct {\n");
 	fprintf(out, "\tint width;\n");
@@ -57,67 +58,69 @@ void info(FILE *out, char *name, int w, int h, int chars) {
 // processChar
 //==============================================================================
 
-void processChar(FILE * out, unsigned char *bitmap, int fontwidth, int fontheight, int fontyoffset, int charheight, int charyoffset) {
+void processChar(FILE * out, unsigned char *bitmap, int fontwidth,
+	int fontheight, int fontyoffset, int charheight, int charyoffset) {
+
 	int x;
 	int y;
 	int c;
 
-	// how many rows from the top of the font bounding box is the top of this character?
+	// Rows from the top of bounding box is the top of character.
 	int yoffset = fontheight - charheight + (fontyoffset - charyoffset);
 
 	for (y = 0; y < fontheight; ++y) {
-	fputc('\t', out);
-	for (x = 0; x < fontwidth; x += 8) {
-		// if current row is above or below the bitmap, output a blank row
-		if(y < yoffset || y > yoffset + charheight)
-			c = 0;
-		else
-			c = bitmap[(y - yoffset) * ((fontwidth + 7) / 8) + x / 8];
+		fputc('\t', out);
+		for (x = 0; x < fontwidth; x += 8) {
 
-		//printf("%d = %d\n", y * ((width+7)/8) + x/8, c);
-		if (c & 0x80) {
-		fputc('X', out);
-		} else {
-		fputc('_', out);
+			// If current row is above or below the bitmap, output a blank row.
+			if(y < yoffset || y > yoffset + charheight)
+				c = 0;
+			else
+				c = bitmap[(y - yoffset) * ((fontwidth + 7) / 8) + x / 8];
+
+			if (c & 0x80) {
+				fputc('#', out);
+			} else {
+				fputc('-', out);
+			}
+			if (c & 0x40) {
+				fputc('#', out);
+			} else {
+				fputc('-', out);
+			}
+			if (c & 0x20) {
+				fputc('#', out);
+			} else {
+				fputc('-', out);
+			}
+			if (c & 0x10) {
+				fputc('#', out);
+			} else {
+				fputc('-', out);
+			}
+			if (c & 0x08) {
+				fputc('#', out);
+			} else {
+				fputc('-', out);
+			}
+			if (c & 0x04) {
+				fputc('#', out);
+			} else {
+				fputc('-', out);
+			}
+			if (c & 0x02) {
+				fputc('#', out);
+			} else {
+				fputc('-', out);
+			}
+			if (c & 0x01) {
+				fputc('#', out);
+			} else {
+				fputc('-', out);
+			}
+				fputc(',', out);
 		}
-		if (c & 0x40) {
-		fputc('X', out);
-		} else {
-		fputc('_', out);
-		}
-		if (c & 0x20) {
-		fputc('X', out);
-		} else {
-		fputc('_', out);
-		}
-		if (c & 0x10) {
-		fputc('X', out);
-		} else {
-		fputc('_', out);
-		}
-		if (c & 0x08) {
-		fputc('X', out);
-		} else {
-		fputc('_', out);
-		}
-		if (c & 0x04) {
-		fputc('X', out);
-		} else {
-		fputc('_', out);
-		}
-		if (c & 0x02) {
-		fputc('X', out);
-		} else {
-		fputc('_', out);
-		}
-		if (c & 0x01) {
-		fputc('X', out);
-		} else {
-		fputc('_', out);
-		}
-		fputc(',', out);
-	}
-	fputc('\n', out);
+		fputc('\n', out);
 	}
 }
 
@@ -167,17 +170,15 @@ void RotateBitmap(unsigned char *bitmap, int shift, int width, int height)
 }
 
 
+//==============================================================================
+//	Read BDF font file.
+//==============================================================================
+//	@param bdf	file stream for input (bdf file)
+//	@param out	file stream for output (C source file)
+//	@param name	font variable name in C source file
+//==============================================================================
 
-///
-///	Read BDF font file.
-///
-///	@param bdf	file stream for input (bdf file)
-///	@param out	file stream for output (C source file)
-///	@param name	font variable name in C source file
-///
-///	@todo bbx isn't used to correct character position in bitmap
-///
-void read_bdf(FILE * bdf, FILE * out, char *name) {
+void read_bdf(FILE *bdf, FILE *out, char *name) {
 	char linebuf[1024];
 	char *s;
 	char *p;
