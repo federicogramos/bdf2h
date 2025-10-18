@@ -29,13 +29,51 @@ void process_bdf(FILE * bdf, FILE * out, char *fontName);
 //
 //==============================================================================
 
-int main() {
-	char *fontName;
-	fontName = "defaultFontName";
+int main(int argc, char *argv[]) {
+	char *fontName = "defaultFontName";
+	int flag_h = 0;
+	char *out_filename = NULL;
+	char *in_filename = NULL;
 
-	process_bdf(stdin, stdout, fontName);
+	FILE * in = stdin;
+
+	for (int i = 1; i < argc; i++) {
+		if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
+			flag_h = 1;
+		} else if (strcmp(argv[i], "-o") == 0) {
+			if (i + 1 < argc) {
+				out_filename = argv[i + 1];
+				i++; // Skip filename in next iteration.
+			} else {
+				fprintf(stderr, "Error: -o flag requires a filename.\n");
+				return 1;
+			}
+		} else if (strcmp(argv[i], "-i") == 0) {
+			if (i + 1 < argc) {
+				in_filename = argv[i + 1];
+				i++; // Skip filename in next iteration.
+			} else {
+				fprintf(stderr, "Error: -i flag requires a filename.\n");
+				return 1;
+			}
+		} else {
+			printf("Unknown argument: %s\n", argv[i]);
+		}
+	}
+
+	if(flag_h)
+		printf("Usage: bdf2h");
+
+	if(in_filename != NULL)
+		in = fopen(in_filename, "r");
+	process_bdf(in, stdout, fontName);
 	return 0;
 }
+
+
+
+
+
 
 
 //==============================================================================
