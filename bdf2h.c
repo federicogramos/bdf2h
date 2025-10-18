@@ -297,7 +297,7 @@ void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data, unsigned char *bi
 			p = strtok(NULL, " \t\n\r");
 			bby = atoi(p);
 		} else if (!strcasecmp(s, "BITMAP")) {
-			fprintf(out, "// %3d $%02x '%s'\n", encoding, encoding, charname);
+			fprintf(out, "// %03d 0x%02x '%s'\n", encoding, encoding, charname);
 			fprintf(out, "//\twidth %d, bbx %d, bby %d, bbw %d, bbh %d\n",
 			width, bbx, bby, bbw, bbh);
 

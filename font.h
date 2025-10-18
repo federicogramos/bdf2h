@@ -8,7 +8,7 @@ typedef struct {
 bmp_font_inf defaultFontName_inf = { 8, 16, 256 };
 
 const unsigned char defaultFontName_bmp[] = {
-//   0 $00 'uni0000'
+// 000 0x00 'uni0000'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -26,7 +26,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//   1 $01 'uni0001'
+// 001 0x01 'uni0001'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -44,7 +44,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//   2 $02 'uni0002'
+// 002 0x02 'uni0002'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -62,7 +62,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//   3 $03 'uni0003'
+// 003 0x03 'uni0003'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -80,7 +80,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//   4 $04 'uni0004'
+// 004 0x04 'uni0004'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -98,7 +98,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//   5 $05 'uni0005'
+// 005 0x05 'uni0005'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -116,7 +116,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//   6 $06 'uni0006'
+// 006 0x06 'uni0006'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -134,7 +134,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//   7 $07 'uni0007'
+// 007 0x07 'uni0007'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -152,7 +152,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//   8 $08 'uni0008'
+// 008 0x08 'uni0008'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -170,7 +170,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//   9 $09 'uni0009'
+// 009 0x09 'uni0009'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -188,7 +188,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  10 $0a 'uni000A'
+// 010 0x0a 'uni000A'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -206,7 +206,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  11 $0b 'uni000B'
+// 011 0x0b 'uni000B'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -224,7 +224,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  12 $0c 'uni000C'
+// 012 0x0c 'uni000C'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -242,7 +242,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  13 $0d 'uni000D'
+// 013 0x0d 'uni000D'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -260,7 +260,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  14 $0e 'uni000E'
+// 014 0x0e 'uni000E'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -278,7 +278,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  15 $0f 'uni000F'
+// 015 0x0f 'uni000F'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -296,7 +296,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  16 $10 'uni0010'
+// 016 0x10 'uni0010'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -314,7 +314,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  17 $11 'uni0011'
+// 017 0x11 'uni0011'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -332,7 +332,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  18 $12 'uni0012'
+// 018 0x12 'uni0012'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -350,7 +350,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  19 $13 'uni0013'
+// 019 0x13 'uni0013'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -368,7 +368,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  20 $14 'uni0014'
+// 020 0x14 'uni0014'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -386,7 +386,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  21 $15 'uni0015'
+// 021 0x15 'uni0015'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -404,7 +404,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  22 $16 'uni0016'
+// 022 0x16 'uni0016'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -422,7 +422,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  23 $17 'uni0017'
+// 023 0x17 'uni0017'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -440,7 +440,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  24 $18 'uni0018'
+// 024 0x18 'uni0018'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -458,7 +458,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  25 $19 'uni0019'
+// 025 0x19 'uni0019'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -476,7 +476,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  26 $1a 'uni001A'
+// 026 0x1a 'uni001A'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -494,7 +494,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  27 $1b 'uni001B'
+// 027 0x1b 'uni001B'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -512,7 +512,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  28 $1c 'uni001C'
+// 028 0x1c 'uni001C'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -530,7 +530,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  29 $1d 'uni001D'
+// 029 0x1d 'uni001D'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -548,7 +548,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  30 $1e 'uni001E'
+// 030 0x1e 'uni001E'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -566,7 +566,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  31 $1f 'uni001F'
+// 031 0x1f 'uni001F'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -584,7 +584,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  32 $20 'space'
+// 032 0x20 'space'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -602,7 +602,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  33 $21 'exclam'
+// 033 0x21 'exclam'
 //	width 2, bbx 0, bby 4, bbw 1, bbh 10
 	--------,
 	--------,
@@ -620,7 +620,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  34 $22 'quotedbl'
+// 034 0x22 'quotedbl'
 //	width 4, bbx 0, bby 11, bbw 3, bbh 3
 	--------,
 	--------,
@@ -638,7 +638,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  35 $23 'numbersign'
+// 035 0x23 'numbersign'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 9
 	--------,
 	--------,
@@ -656,7 +656,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  36 $24 'dollar'
+// 036 0x24 'dollar'
 //	width 6, bbx 0, bby 3, bbw 5, bbh 12
 	--------,
 	--#-----,
@@ -674,7 +674,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  37 $25 'percent'
+// 037 0x25 'percent'
 //	width 8, bbx 0, bby 3, bbw 7, bbh 11
 	--------,
 	--------,
@@ -692,7 +692,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  38 $26 'ampersand'
+// 038 0x26 'ampersand'
 //	width 8, bbx 0, bby 4, bbw 7, bbh 10
 	--------,
 	--------,
@@ -710,7 +710,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  39 $27 'quotesingle'
+// 039 0x27 'quotesingle'
 //	width 3, bbx 0, bby 11, bbw 2, bbh 3
 	--------,
 	--------,
@@ -728,7 +728,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  40 $28 'parenleft'
+// 040 0x28 'parenleft'
 //	width 4, bbx 0, bby 3, bbw 3, bbh 11
 	--------,
 	--------,
@@ -746,7 +746,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  41 $29 'parenright'
+// 041 0x29 'parenright'
 //	width 4, bbx 0, bby 3, bbw 3, bbh 11
 	--------,
 	--------,
@@ -764,7 +764,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  42 $2a 'asterisk'
+// 042 0x2a 'asterisk'
 //	width 7, bbx 0, bby 6, bbw 6, bbh 5
 	--------,
 	--------,
@@ -782,7 +782,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  43 $2b 'plus'
+// 043 0x2b 'plus'
 //	width 6, bbx 0, bby 6, bbw 5, bbh 5
 	--------,
 	--------,
@@ -800,7 +800,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  44 $2c 'comma'
+// 044 0x2c 'comma'
 //	width 3, bbx 0, bby 3, bbw 2, bbh 3
 	--------,
 	--------,
@@ -818,7 +818,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  45 $2d 'hyphen'
+// 045 0x2d 'hyphen'
 //	width 5, bbx 0, bby 8, bbw 4, bbh 1
 	--------,
 	--------,
@@ -836,7 +836,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  46 $2e 'period'
+// 046 0x2e 'period'
 //	width 2, bbx 0, bby 4, bbw 1, bbh 2
 	--------,
 	--------,
@@ -854,7 +854,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  47 $2f 'slash'
+// 047 0x2f 'slash'
 //	width 6, bbx 0, bby 4, bbw 5, bbh 10
 	--------,
 	--------,
@@ -872,7 +872,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  48 $30 'zero'
+// 048 0x30 'zero'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -890,7 +890,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  49 $31 'one'
+// 049 0x31 'one'
 //	width 5, bbx 0, bby 4, bbw 4, bbh 10
 	--------,
 	--------,
@@ -908,7 +908,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  50 $32 'two'
+// 050 0x32 'two'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -926,7 +926,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  51 $33 'three'
+// 051 0x33 'three'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -944,7 +944,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  52 $34 'four'
+// 052 0x34 'four'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -962,7 +962,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  53 $35 'five'
+// 053 0x35 'five'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -980,7 +980,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  54 $36 'six'
+// 054 0x36 'six'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -998,7 +998,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  55 $37 'seven'
+// 055 0x37 'seven'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1016,7 +1016,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  56 $38 'eight'
+// 056 0x38 'eight'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1034,7 +1034,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  57 $39 'nine'
+// 057 0x39 'nine'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1052,7 +1052,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  58 $3a 'colon'
+// 058 0x3a 'colon'
 //	width 2, bbx 0, bby 4, bbw 1, bbh 7
 	--------,
 	--------,
@@ -1070,7 +1070,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  59 $3b 'semicolon'
+// 059 0x3b 'semicolon'
 //	width 3, bbx 0, bby 3, bbw 2, bbh 8
 	--------,
 	--------,
@@ -1088,7 +1088,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  60 $3c 'less'
+// 060 0x3c 'less'
 //	width 6, bbx 0, bby 4, bbw 5, bbh 9
 	--------,
 	--------,
@@ -1106,7 +1106,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  61 $3d 'equal'
+// 061 0x3d 'equal'
 //	width 7, bbx 0, bby 7, bbw 6, bbh 3
 	--------,
 	--------,
@@ -1124,7 +1124,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  62 $3e 'greater'
+// 062 0x3e 'greater'
 //	width 6, bbx 0, bby 4, bbw 5, bbh 9
 	--------,
 	--------,
@@ -1142,7 +1142,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  63 $3f 'question'
+// 063 0x3f 'question'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1160,7 +1160,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  64 $40 'at'
+// 064 0x40 'at'
 //	width 9, bbx 0, bby 4, bbw 8, bbh 9
 	--------,
 	--------,
@@ -1178,7 +1178,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  65 $41 'A'
+// 065 0x41 'A'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1196,7 +1196,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  66 $42 'B'
+// 066 0x42 'B'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1214,7 +1214,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  67 $43 'C'
+// 067 0x43 'C'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1232,7 +1232,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  68 $44 'D'
+// 068 0x44 'D'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1250,7 +1250,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  69 $45 'E'
+// 069 0x45 'E'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1268,7 +1268,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  70 $46 'F'
+// 070 0x46 'F'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1286,7 +1286,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  71 $47 'G'
+// 071 0x47 'G'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1304,7 +1304,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  72 $48 'H'
+// 072 0x48 'H'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1322,7 +1322,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  73 $49 'I'
+// 073 0x49 'I'
 //	width 2, bbx 0, bby 4, bbw 1, bbh 10
 	--------,
 	--------,
@@ -1340,7 +1340,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  74 $4a 'J'
+// 074 0x4a 'J'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1358,7 +1358,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  75 $4b 'K'
+// 075 0x4b 'K'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1376,7 +1376,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  76 $4c 'L'
+// 076 0x4c 'L'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1394,7 +1394,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  77 $4d 'M'
+// 077 0x4d 'M'
 //	width 8, bbx 0, bby 4, bbw 7, bbh 10
 	--------,
 	--------,
@@ -1412,7 +1412,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  78 $4e 'N'
+// 078 0x4e 'N'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1430,7 +1430,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  79 $4f 'O'
+// 079 0x4f 'O'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1448,7 +1448,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  80 $50 'P'
+// 080 0x50 'P'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1466,7 +1466,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  81 $51 'Q'
+// 081 0x51 'Q'
 //	width 7, bbx 0, bby 3, bbw 6, bbh 11
 	--------,
 	--------,
@@ -1484,7 +1484,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  82 $52 'R'
+// 082 0x52 'R'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1502,7 +1502,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  83 $53 'S'
+// 083 0x53 'S'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1520,7 +1520,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  84 $54 'T'
+// 084 0x54 'T'
 //	width 8, bbx 0, bby 4, bbw 7, bbh 10
 	--------,
 	--------,
@@ -1538,7 +1538,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  85 $55 'U'
+// 085 0x55 'U'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1556,7 +1556,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  86 $56 'V'
+// 086 0x56 'V'
 //	width 8, bbx 0, bby 4, bbw 7, bbh 10
 	--------,
 	--------,
@@ -1574,7 +1574,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  87 $57 'W'
+// 087 0x57 'W'
 //	width 8, bbx 0, bby 4, bbw 7, bbh 10
 	--------,
 	--------,
@@ -1592,7 +1592,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  88 $58 'X'
+// 088 0x58 'X'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1610,7 +1610,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  89 $59 'Y'
+// 089 0x59 'Y'
 //	width 8, bbx 0, bby 4, bbw 7, bbh 10
 	--------,
 	--------,
@@ -1628,7 +1628,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  90 $5a 'Z'
+// 090 0x5a 'Z'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1646,7 +1646,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  91 $5b 'bracketleft'
+// 091 0x5b 'bracketleft'
 //	width 4, bbx 0, bby 3, bbw 3, bbh 11
 	--------,
 	--------,
@@ -1664,7 +1664,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  92 $5c 'backslash'
+// 092 0x5c 'backslash'
 //	width 6, bbx 0, bby 4, bbw 5, bbh 10
 	--------,
 	--------,
@@ -1682,7 +1682,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  93 $5d 'bracketright'
+// 093 0x5d 'bracketright'
 //	width 4, bbx 0, bby 3, bbw 3, bbh 11
 	--------,
 	--------,
@@ -1700,7 +1700,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  94 $5e 'asciicircum'
+// 094 0x5e 'asciicircum'
 //	width 6, bbx 0, bby 12, bbw 5, bbh 3
 	--------,
 	--#-----,
@@ -1718,7 +1718,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  95 $5f 'underscore'
+// 095 0x5f 'underscore'
 //	width 7, bbx 0, bby 2, bbw 6, bbh 1
 	--------,
 	--------,
@@ -1736,7 +1736,7 @@ const unsigned char defaultFontName_bmp[] = {
 	######--,
 	--------,
 	--------,
-//  96 $60 'grave'
+// 096 0x60 'grave'
 //	width 3, bbx 0, bby 11, bbw 2, bbh 3
 	--------,
 	--------,
@@ -1754,7 +1754,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  97 $61 'a'
+// 097 0x61 'a'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 7
 	--------,
 	--------,
@@ -1772,7 +1772,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  98 $62 'b'
+// 098 0x62 'b'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1790,7 +1790,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-//  99 $63 'c'
+// 099 0x63 'c'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 7
 	--------,
 	--------,
@@ -1808,7 +1808,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 100 $64 'd'
+// 100 0x64 'd'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1826,7 +1826,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 101 $65 'e'
+// 101 0x65 'e'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 7
 	--------,
 	--------,
@@ -1844,7 +1844,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 102 $66 'f'
+// 102 0x66 'f'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1862,7 +1862,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 103 $67 'g'
+// 103 0x67 'g'
 //	width 7, bbx 0, bby 1, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1880,7 +1880,7 @@ const unsigned char defaultFontName_bmp[] = {
 	#----#--,
 	-####---,
 	--------,
-// 104 $68 'h'
+// 104 0x68 'h'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1898,7 +1898,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 105 $69 'i'
+// 105 0x69 'i'
 //	width 2, bbx 0, bby 4, bbw 1, bbh 9
 	--------,
 	--------,
@@ -1916,7 +1916,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 106 $6a 'j'
+// 106 0x6a 'j'
 //	width 6, bbx 0, bby 1, bbw 5, bbh 12
 	--------,
 	--------,
@@ -1934,7 +1934,7 @@ const unsigned char defaultFontName_bmp[] = {
 	#---#---,
 	-###----,
 	--------,
-// 107 $6b 'k'
+// 107 0x6b 'k'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -1952,7 +1952,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 108 $6c 'l'
+// 108 0x6c 'l'
 //	width 3, bbx 0, bby 4, bbw 2, bbh 10
 	--------,
 	--------,
@@ -1970,7 +1970,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 109 $6d 'm'
+// 109 0x6d 'm'
 //	width 8, bbx 0, bby 4, bbw 7, bbh 7
 	--------,
 	--------,
@@ -1988,7 +1988,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 110 $6e 'n'
+// 110 0x6e 'n'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 7
 	--------,
 	--------,
@@ -2006,7 +2006,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 111 $6f 'o'
+// 111 0x6f 'o'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 7
 	--------,
 	--------,
@@ -2024,7 +2024,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 112 $70 'p'
+// 112 0x70 'p'
 //	width 7, bbx 0, bby 1, bbw 6, bbh 10
 	--------,
 	--------,
@@ -2042,7 +2042,7 @@ const unsigned char defaultFontName_bmp[] = {
 	#-------,
 	#-------,
 	--------,
-// 113 $71 'q'
+// 113 0x71 'q'
 //	width 7, bbx 0, bby 1, bbw 6, bbh 10
 	--------,
 	--------,
@@ -2060,7 +2060,7 @@ const unsigned char defaultFontName_bmp[] = {
 	-----#--,
 	-----#--,
 	--------,
-// 114 $72 'r'
+// 114 0x72 'r'
 //	width 6, bbx 0, bby 4, bbw 5, bbh 7
 	--------,
 	--------,
@@ -2078,7 +2078,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 115 $73 's'
+// 115 0x73 's'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 7
 	--------,
 	--------,
@@ -2096,7 +2096,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 116 $74 't'
+// 116 0x74 't'
 //	width 6, bbx 0, bby 4, bbw 5, bbh 9
 	--------,
 	--------,
@@ -2114,7 +2114,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 117 $75 'u'
+// 117 0x75 'u'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 7
 	--------,
 	--------,
@@ -2132,7 +2132,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 118 $76 'v'
+// 118 0x76 'v'
 //	width 8, bbx 0, bby 4, bbw 7, bbh 7
 	--------,
 	--------,
@@ -2150,7 +2150,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 119 $77 'w'
+// 119 0x77 'w'
 //	width 8, bbx 0, bby 4, bbw 7, bbh 7
 	--------,
 	--------,
@@ -2168,7 +2168,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 120 $78 'x'
+// 120 0x78 'x'
 //	width 8, bbx 0, bby 4, bbw 7, bbh 7
 	--------,
 	--------,
@@ -2186,7 +2186,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 121 $79 'y'
+// 121 0x79 'y'
 //	width 7, bbx 0, bby 1, bbw 6, bbh 10
 	--------,
 	--------,
@@ -2204,7 +2204,7 @@ const unsigned char defaultFontName_bmp[] = {
 	----#---,
 	####----,
 	--------,
-// 122 $7a 'z'
+// 122 0x7a 'z'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 7
 	--------,
 	--------,
@@ -2222,7 +2222,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 123 $7b 'braceleft'
+// 123 0x7b 'braceleft'
 //	width 6, bbx 0, bby 3, bbw 5, bbh 11
 	--------,
 	--------,
@@ -2240,7 +2240,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 124 $7c 'bar'
+// 124 0x7c 'bar'
 //	width 2, bbx 0, bby 4, bbw 1, bbh 10
 	--------,
 	--------,
@@ -2258,7 +2258,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 125 $7d 'braceright'
+// 125 0x7d 'braceright'
 //	width 6, bbx 0, bby 3, bbw 5, bbh 11
 	--------,
 	--------,
@@ -2276,7 +2276,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 126 $7e 'asciitilde'
+// 126 0x7e 'asciitilde'
 //	width 7, bbx 0, bby 12, bbw 6, bbh 2
 	--------,
 	--------,
@@ -2294,7 +2294,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 127 $7f 'uni007F'
+// 127 0x7f 'uni007F'
 //	width 8, bbx 0, bby 3, bbw 7, bbh 12
 	--------,
 	##------,
@@ -2312,7 +2312,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 128 $80 'Euro'
+// 128 0x80 'Euro'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2330,7 +2330,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 129 $81 'NameMe.129.1'
+// 129 0x81 'NameMe.129.1'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2348,7 +2348,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 130 $82 'quotesinglbase'
+// 130 0x82 'quotesinglbase'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2366,7 +2366,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 131 $83 'florin'
+// 131 0x83 'florin'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2384,7 +2384,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 132 $84 'quotedblbase'
+// 132 0x84 'quotedblbase'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2402,7 +2402,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 133 $85 'ellipsis'
+// 133 0x85 'ellipsis'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2420,7 +2420,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 134 $86 'dagger'
+// 134 0x86 'dagger'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2438,7 +2438,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 135 $87 'daggerdbl'
+// 135 0x87 'daggerdbl'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2456,7 +2456,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 136 $88 'circumflex'
+// 136 0x88 'circumflex'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2474,7 +2474,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 137 $89 'perthousand'
+// 137 0x89 'perthousand'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2492,7 +2492,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 138 $8a 'Scaron'
+// 138 0x8a 'Scaron'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2510,7 +2510,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 139 $8b 'guilsinglleft'
+// 139 0x8b 'guilsinglleft'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2528,7 +2528,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 140 $8c 'OE'
+// 140 0x8c 'OE'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2546,7 +2546,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 141 $8d 'NameMe.141.1'
+// 141 0x8d 'NameMe.141.1'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2564,7 +2564,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 142 $8e 'Zcaron'
+// 142 0x8e 'Zcaron'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2582,7 +2582,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 143 $8f 'NameMe.143.1'
+// 143 0x8f 'NameMe.143.1'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2600,7 +2600,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 144 $90 'NameMe.144.1'
+// 144 0x90 'NameMe.144.1'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2618,7 +2618,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 145 $91 'quoteleft'
+// 145 0x91 'quoteleft'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2636,7 +2636,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 146 $92 'quoteright'
+// 146 0x92 'quoteright'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2654,7 +2654,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 147 $93 'quotedblleft'
+// 147 0x93 'quotedblleft'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2672,7 +2672,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 148 $94 'quotedblright'
+// 148 0x94 'quotedblright'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2690,7 +2690,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 149 $95 'bullet'
+// 149 0x95 'bullet'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2708,7 +2708,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 150 $96 'endash'
+// 150 0x96 'endash'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2726,7 +2726,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 151 $97 'emdash'
+// 151 0x97 'emdash'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2744,7 +2744,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 152 $98 'tilde'
+// 152 0x98 'tilde'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2762,7 +2762,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 153 $99 'trademark'
+// 153 0x99 'trademark'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2780,7 +2780,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 154 $9a 'scaron'
+// 154 0x9a 'scaron'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2798,7 +2798,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 155 $9b 'guilsinglright'
+// 155 0x9b 'guilsinglright'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2816,7 +2816,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 156 $9c 'oe'
+// 156 0x9c 'oe'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2834,7 +2834,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 157 $9d 'NameMe.157.1'
+// 157 0x9d 'NameMe.157.1'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2852,7 +2852,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 158 $9e 'zcaron'
+// 158 0x9e 'zcaron'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2870,7 +2870,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 159 $9f 'Ydieresis'
+// 159 0x9f 'Ydieresis'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2888,7 +2888,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 160 $a0 'uni00A0'
+// 160 0xa0 'uni00A0'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -2906,7 +2906,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 161 $a1 'exclamdown'
+// 161 0xa1 'exclamdown'
 //	width 2, bbx 0, bby 4, bbw 1, bbh 10
 	--------,
 	--------,
@@ -2924,7 +2924,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 162 $a2 'cent'
+// 162 0xa2 'cent'
 //	width 7, bbx 0, bby 2, bbw 6, bbh 10
 	--------,
 	--------,
@@ -2942,7 +2942,7 @@ const unsigned char defaultFontName_bmp[] = {
 	-#------,
 	--------,
 	--------,
-// 163 $a3 'sterling'
+// 163 0xa3 'sterling'
 //	width 6, bbx 0, bby 4, bbw 5, bbh 10
 	--------,
 	--------,
@@ -2960,7 +2960,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 164 $a4 'currency'
+// 164 0xa4 'currency'
 //	width 9, bbx 0, bby 4, bbw 8, bbh 9
 	--------,
 	--------,
@@ -2978,7 +2978,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 165 $a5 'yen'
+// 165 0xa5 'yen'
 //	width 8, bbx 0, bby 4, bbw 7, bbh 10
 	--------,
 	--------,
@@ -2996,7 +2996,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 166 $a6 'brokenbar'
+// 166 0xa6 'brokenbar'
 //	width 2, bbx 0, bby 4, bbw 1, bbh 10
 	--------,
 	--------,
@@ -3014,7 +3014,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 167 $a7 'section'
+// 167 0xa7 'section'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -3032,7 +3032,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 168 $a8 'dieresis'
+// 168 0xa8 'dieresis'
 //	width 5, bbx 0, bby 12, bbw 4, bbh 2
 	--------,
 	--------,
@@ -3050,7 +3050,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 169 $a9 'copyright'
+// 169 0xa9 'copyright'
 //	width 9, bbx 0, bby 4, bbw 8, bbh 9
 	--------,
 	--------,
@@ -3068,7 +3068,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 170 $aa 'ordfeminine'
+// 170 0xaa 'ordfeminine'
 //	width 4, bbx 0, bby 8, bbw 3, bbh 6
 	--------,
 	--------,
@@ -3086,7 +3086,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 171 $ab 'guillemotleft'
+// 171 0xab 'guillemotleft'
 //	width 8, bbx 0, bby 5, bbw 7, bbh 7
 	--------,
 	--------,
@@ -3104,7 +3104,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 172 $ac 'logicalnot'
+// 172 0xac 'logicalnot'
 //	width 7, bbx 0, bby 5, bbw 6, bbh 5
 	--------,
 	--------,
@@ -3122,7 +3122,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 173 $ad 'uni00AD'
+// 173 0xad 'uni00AD'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
 	--------,
@@ -3140,7 +3140,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 174 $ae 'registered'
+// 174 0xae 'registered'
 //	width 9, bbx 0, bby 4, bbw 8, bbh 9
 	--------,
 	--------,
@@ -3158,7 +3158,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 175 $af 'macron'
+// 175 0xaf 'macron'
 //	width 6, bbx 0, bby 12, bbw 5, bbh 1
 	--------,
 	--------,
@@ -3176,7 +3176,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 176 $b0 'degree'
+// 176 0xb0 'degree'
 //	width 5, bbx 0, bby 10, bbw 4, bbh 4
 	--------,
 	--------,
@@ -3194,7 +3194,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 177 $b1 'plusminus'
+// 177 0xb1 'plusminus'
 //	width 6, bbx 0, bby 4, bbw 5, bbh 7
 	--------,
 	--------,
@@ -3212,7 +3212,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 178 $b2 'uni00B2'
+// 178 0xb2 'uni00B2'
 //	width 5, bbx 0, bby 9, bbw 4, bbh 5
 	--------,
 	--------,
@@ -3230,7 +3230,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 179 $b3 'uni00B3'
+// 179 0xb3 'uni00B3'
 //	width 5, bbx 0, bby 9, bbw 4, bbh 5
 	--------,
 	--------,
@@ -3248,7 +3248,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 180 $b4 'acute'
+// 180 0xb4 'acute'
 //	width 3, bbx 0, bby 11, bbw 2, bbh 4
 	--------,
 	-#------,
@@ -3266,7 +3266,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 181 $b5 'mu'
+// 181 0xb5 'mu'
 //	width 7, bbx 0, bby 1, bbw 6, bbh 10
 	--------,
 	--------,
@@ -3284,7 +3284,7 @@ const unsigned char defaultFontName_bmp[] = {
 	#-------,
 	#-------,
 	--------,
-// 182 $b6 'paragraph'
+// 182 0xb6 'paragraph'
 //	width 8, bbx 0, bby 4, bbw 7, bbh 7
 	--------,
 	--------,
@@ -3302,7 +3302,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 183 $b7 'periodcentered'
+// 183 0xb7 'periodcentered'
 //	width 2, bbx 0, bby 8, bbw 1, bbh 2
 	--------,
 	--------,
@@ -3320,7 +3320,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 184 $b8 'cedilla'
+// 184 0xb8 'cedilla'
 //	width 4, bbx 0, bby 3, bbw 3, bbh 3
 	--------,
 	--------,
@@ -3338,7 +3338,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 185 $b9 'uni00B9'
+// 185 0xb9 'uni00B9'
 //	width 4, bbx 0, bby 9, bbw 3, bbh 5
 	--------,
 	--------,
@@ -3356,7 +3356,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 186 $ba 'ordmasculine'
+// 186 0xba 'ordmasculine'
 //	width 5, bbx 0, bby 8, bbw 4, bbh 6
 	--------,
 	--------,
@@ -3374,7 +3374,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 187 $bb 'guillemotright'
+// 187 0xbb 'guillemotright'
 //	width 8, bbx 0, bby 5, bbw 7, bbh 7
 	--------,
 	--------,
@@ -3392,7 +3392,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 188 $bc 'onequarter'
+// 188 0xbc 'onequarter'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 11
 	--------,
 	#-------,
@@ -3410,7 +3410,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 189 $bd 'onehalf'
+// 189 0xbd 'onehalf'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 11
 	--------,
 	#-------,
@@ -3428,7 +3428,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 190 $be 'threequarters'
+// 190 0xbe 'threequarters'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 11
 	--------,
 	##------,
@@ -3446,7 +3446,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 191 $bf 'questiondown'
+// 191 0xbf 'questiondown'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -3464,7 +3464,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 192 $c0 'Agrave'
+// 192 0xc0 'Agrave'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 12
 	--#-----,
 	---#----,
@@ -3482,7 +3482,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 193 $c1 'Aacute'
+// 193 0xc1 'Aacute'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 12
 	----#---,
 	---#----,
@@ -3500,7 +3500,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 194 $c2 'Acircumflex'
+// 194 0xc2 'Acircumflex'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 12
 	--##----,
 	-#--#---,
@@ -3518,7 +3518,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 195 $c3 'Atilde'
+// 195 0xc3 'Atilde'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 12
 	--#-#---,
 	-#-#----,
@@ -3536,7 +3536,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 196 $c4 'Adieresis'
+// 196 0xc4 'Adieresis'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 12
 	-#--#---,
 	--------,
@@ -3554,7 +3554,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 197 $c5 'Aring'
+// 197 0xc5 'Aring'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 12
 	--##----,
 	--##----,
@@ -3572,7 +3572,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 198 $c6 'AE'
+// 198 0xc6 'AE'
 //	width 9, bbx 0, bby 4, bbw 8, bbh 10
 	--------,
 	--------,
@@ -3590,7 +3590,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 199 $c7 'Ccedilla'
+// 199 0xc7 'Ccedilla'
 //	width 7, bbx 0, bby 1, bbw 6, bbh 13
 	--------,
 	--------,
@@ -3608,7 +3608,7 @@ const unsigned char defaultFontName_bmp[] = {
 	---#----,
 	--##----,
 	--------,
-// 200 $c8 'Egrave'
+// 200 0xc8 'Egrave'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 12
 	--#-----,
 	---#----,
@@ -3626,7 +3626,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 201 $c9 'Eacute'
+// 201 0xc9 'Eacute'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 12
 	----#---,
 	---#----,
@@ -3644,7 +3644,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 202 $ca 'Ecircumflex'
+// 202 0xca 'Ecircumflex'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 12
 	--##----,
 	-#--#---,
@@ -3662,7 +3662,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 203 $cb 'Edieresis'
+// 203 0xcb 'Edieresis'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 12
 	-#--#---,
 	--------,
@@ -3680,7 +3680,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 204 $cc 'Igrave'
+// 204 0xcc 'Igrave'
 //	width 3, bbx 0, bby 4, bbw 2, bbh 12
 	#-------,
 	-#------,
@@ -3698,7 +3698,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 205 $cd 'Iacute'
+// 205 0xcd 'Iacute'
 //	width 3, bbx 0, bby 4, bbw 2, bbh 12
 	-#------,
 	#-------,
@@ -3716,7 +3716,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 206 $ce 'Icircumflex'
+// 206 0xce 'Icircumflex'
 //	width 4, bbx 0, bby 4, bbw 3, bbh 12
 	-#------,
 	#-#-----,
@@ -3734,7 +3734,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 207 $cf 'Idieresis'
+// 207 0xcf 'Idieresis'
 //	width 4, bbx 0, bby 4, bbw 3, bbh 12
 	#-#-----,
 	--------,
@@ -3752,7 +3752,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 208 $d0 'Eth'
+// 208 0xd0 'Eth'
 //	width 8, bbx 0, bby 4, bbw 7, bbh 10
 	--------,
 	--------,
@@ -3770,7 +3770,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 209 $d1 'Ntilde'
+// 209 0xd1 'Ntilde'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 12
 	--#-#---,
 	-#-#----,
@@ -3788,7 +3788,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 210 $d2 'Ograve'
+// 210 0xd2 'Ograve'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 12
 	--#-----,
 	---#----,
@@ -3806,7 +3806,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 211 $d3 'Oacute'
+// 211 0xd3 'Oacute'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 12
 	----#---,
 	---#----,
@@ -3824,7 +3824,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 212 $d4 'Ocircumflex'
+// 212 0xd4 'Ocircumflex'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 12
 	--##----,
 	-#--#---,
@@ -3842,7 +3842,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 213 $d5 'Otilde'
+// 213 0xd5 'Otilde'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 12
 	--#-#---,
 	-#-#----,
@@ -3860,7 +3860,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 214 $d6 'Odieresis'
+// 214 0xd6 'Odieresis'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 12
 	-#--#---,
 	--------,
@@ -3878,7 +3878,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 215 $d7 'multiply'
+// 215 0xd7 'multiply'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 6
 	--------,
 	--------,
@@ -3896,7 +3896,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 216 $d8 'Oslash'
+// 216 0xd8 'Oslash'
 //	width 9, bbx 0, bby 4, bbw 8, bbh 10
 	--------,
 	--------,
@@ -3914,7 +3914,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 217 $d9 'Ugrave'
+// 217 0xd9 'Ugrave'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 12
 	--#-----,
 	---#----,
@@ -3932,7 +3932,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 218 $da 'Uacute'
+// 218 0xda 'Uacute'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 12
 	----#---,
 	---#----,
@@ -3950,7 +3950,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 219 $db 'Ucircumflex'
+// 219 0xdb 'Ucircumflex'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 12
 	--##----,
 	-#--#---,
@@ -3968,7 +3968,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 220 $dc 'Udieresis'
+// 220 0xdc 'Udieresis'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 12
 	-#--#---,
 	--------,
@@ -3986,7 +3986,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 221 $dd 'Yacute'
+// 221 0xdd 'Yacute'
 //	width 8, bbx 0, bby 4, bbw 7, bbh 12
 	----#---,
 	---#----,
@@ -4004,7 +4004,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 222 $de 'Thorn'
+// 222 0xde 'Thorn'
 //	width 6, bbx 0, bby 4, bbw 5, bbh 10
 	--------,
 	--------,
@@ -4022,7 +4022,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 223 $df 'germandbls'
+// 223 0xdf 'germandbls'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -4040,7 +4040,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 224 $e0 'agrave'
+// 224 0xe0 'agrave'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -4058,7 +4058,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 225 $e1 'aacute'
+// 225 0xe1 'aacute'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -4076,7 +4076,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 226 $e2 'acircumflex'
+// 226 0xe2 'acircumflex'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -4094,7 +4094,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 227 $e3 'atilde'
+// 227 0xe3 'atilde'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 9
 	--------,
 	--------,
@@ -4112,7 +4112,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 228 $e4 'adieresis'
+// 228 0xe4 'adieresis'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 9
 	--------,
 	--------,
@@ -4130,7 +4130,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 229 $e5 'aring'
+// 229 0xe5 'aring'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -4148,7 +4148,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 230 $e6 'ae'
+// 230 0xe6 'ae'
 //	width 8, bbx 0, bby 4, bbw 7, bbh 7
 	--------,
 	--------,
@@ -4166,7 +4166,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 231 $e7 'ccedilla'
+// 231 0xe7 'ccedilla'
 //	width 7, bbx 0, bby 2, bbw 6, bbh 9
 	--------,
 	--------,
@@ -4184,7 +4184,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--##----,
 	--------,
 	--------,
-// 232 $e8 'egrave'
+// 232 0xe8 'egrave'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -4202,7 +4202,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 233 $e9 'eacute'
+// 233 0xe9 'eacute'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -4220,7 +4220,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 234 $ea 'ecircumflex'
+// 234 0xea 'ecircumflex'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -4238,7 +4238,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 235 $eb 'edieresis'
+// 235 0xeb 'edieresis'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 9
 	--------,
 	--------,
@@ -4256,7 +4256,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 236 $ec 'igrave'
+// 236 0xec 'igrave'
 //	width 3, bbx 0, bby 4, bbw 2, bbh 10
 	--------,
 	--------,
@@ -4274,7 +4274,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 237 $ed 'iacute'
+// 237 0xed 'iacute'
 //	width 3, bbx 0, bby 4, bbw 2, bbh 10
 	--------,
 	--------,
@@ -4292,7 +4292,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 238 $ee 'icircumflex'
+// 238 0xee 'icircumflex'
 //	width 4, bbx 0, bby 4, bbw 3, bbh 10
 	--------,
 	--------,
@@ -4310,7 +4310,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 239 $ef 'idieresis'
+// 239 0xef 'idieresis'
 //	width 4, bbx 0, bby 4, bbw 3, bbh 9
 	--------,
 	--------,
@@ -4328,7 +4328,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 240 $f0 'eth'
+// 240 0xf0 'eth'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -4346,7 +4346,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 241 $f1 'ntilde'
+// 241 0xf1 'ntilde'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 9
 	--------,
 	--------,
@@ -4364,7 +4364,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 242 $f2 'ograve'
+// 242 0xf2 'ograve'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -4382,7 +4382,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 243 $f3 'oacute'
+// 243 0xf3 'oacute'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -4400,7 +4400,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 244 $f4 'ocircumflex'
+// 244 0xf4 'ocircumflex'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -4418,7 +4418,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 245 $f5 'otilde'
+// 245 0xf5 'otilde'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 9
 	--------,
 	--------,
@@ -4436,7 +4436,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 246 $f6 'odieresis'
+// 246 0xf6 'odieresis'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 9
 	--------,
 	--------,
@@ -4454,7 +4454,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 247 $f7 'divide'
+// 247 0xf7 'divide'
 //	width 6, bbx 0, bby 5, bbw 5, bbh 7
 	--------,
 	--------,
@@ -4472,7 +4472,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 248 $f8 'oslash'
+// 248 0xf8 'oslash'
 //	width 9, bbx 0, bby 3, bbw 8, bbh 9
 	--------,
 	--------,
@@ -4490,7 +4490,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 249 $f9 'ugrave'
+// 249 0xf9 'ugrave'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -4508,7 +4508,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 250 $fa 'uacute'
+// 250 0xfa 'uacute'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -4526,7 +4526,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 251 $fb 'ucircumflex'
+// 251 0xfb 'ucircumflex'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 10
 	--------,
 	--------,
@@ -4544,7 +4544,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 252 $fc 'udieresis'
+// 252 0xfc 'udieresis'
 //	width 7, bbx 0, bby 4, bbw 6, bbh 9
 	--------,
 	--------,
@@ -4562,7 +4562,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 253 $fd 'yacute'
+// 253 0xfd 'yacute'
 //	width 7, bbx 0, bby 1, bbw 6, bbh 13
 	--------,
 	--------,
@@ -4580,7 +4580,7 @@ const unsigned char defaultFontName_bmp[] = {
 	----#---,
 	####----,
 	--------,
-// 254 $fe 'thorn'
+// 254 0xfe 'thorn'
 //	width 5, bbx 0, bby 4, bbw 4, bbh 10
 	--------,
 	--------,
@@ -4598,7 +4598,7 @@ const unsigned char defaultFontName_bmp[] = {
 	--------,
 	--------,
 	--------,
-// 255 $ff 'ydieresis'
+// 255 0xff 'ydieresis'
 //	width 7, bbx 0, bby 1, bbw 6, bbh 12
 	--------,
 	--------,
