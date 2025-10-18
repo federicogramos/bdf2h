@@ -14,7 +14,7 @@
 #include <limits.h>
 
 
-void process_bdf(FILE * bdf, FILE * out, char *name);
+void process_bdf(FILE * bdf, FILE * out, char *fontName);
 
 
 //==============================================================================
@@ -22,10 +22,10 @@ void process_bdf(FILE * bdf, FILE * out, char *name);
 //==============================================================================
 
 int main() {
-	char *name;
-	name = "font";
+	char *fontName;
+	fontName = "default_font_name";
 
-	process_bdf(stdin, stdout, name);
+	process_bdf(stdin, stdout, fontName);
 	return 0;
 }
 
@@ -33,23 +33,24 @@ int main() {
 //==============================================================================
 // info | defines struct and font info
 //==============================================================================
-//	out
-//	name font variable name in C source file
-//	width character width of font
-//	height character height of font
-//	chars number of characters
+// Argumentos:
+// -- out = output stream.
+// -- fontName
+// -- width = char width in px.
+// -- height = char height in px.
+// -- nChars = number of characters font has.
 //==============================================================================
 
-void info(FILE *out, char *name, int w, int h, int chars) {
+void info(FILE *out, char *name, int w, int h, int nChars) {
 
 	fprintf(out, "// Bitmap font struct def.\n");
 	fprintf(out, "typedef struct {\n");
 	fprintf(out, "\tint width;\n");
 	fprintf(out, "\tint height;\n");
-	fprintf(out, "\tint chars;\n");
+	fprintf(out, "\tint nChars;\n");
 	fprintf(out, "} bmp_font;\n\n");
 
-	fprintf(out, "bmp_font %s = { %d, %d, %d };\n\n", name, w, h, chars);
+	fprintf(out, "bmp_font %s = { %d, %d, %d };\n\n", name, w, h, nChars);
 }
 
 
@@ -175,20 +176,21 @@ void RotateBitmap(unsigned char *bitmap, int shift, int width, int height)
 //==============================================================================
 //	Read BDF font file.
 //==============================================================================
-//	@param bdf	file stream for input (bdf file)
-//	@param out	file stream for output (C source file)
-//	@param name	font variable name in C source file
+// Recibe:
+// -- bdf = stream input bdf file.
+// -- out = output stream.
+// -- name font variable name in C source file
 //==============================================================================
 
 void process_bdf(FILE *bdf, FILE *out, char *name) {
-	char linebuf[1024];
+	char buff[1024];
 	char *s;
 	char *p;
-	int boundingBox_width;
-	int boundingBox_height;
-	int boundingBox_xoff;
-	int boundingBox_yoff;
-	int chars;
+	int boundingBox_width = 0;
+	int boundingBox_height = 0;
+	int boundingBox_xos = 0;
+	int boundingBox_yos = 0;
+	int nChars = 0;
 	int i;
 	int j;
 	int n;
@@ -204,54 +206,49 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 	unsigned *encoding_table;
 	unsigned char *bitmap;
 
-	boundingBox_width = 0;
-	boundingBox_height = 0;
-	boundingBox_xoff = 0;
-	boundingBox_yoff = 0;
-	chars = 0;
 	for (;;) {
-	if (!fgets(linebuf, sizeof(linebuf), bdf)) {	// EOF
-		break;
-	}
-	if (!(s = strtok(linebuf, " \t\n\r"))) {	// empty line
-		break;
-	}
-	// printf("token:%s\n", s);
-	if (!strcasecmp(s, "FONTBOUNDINGBOX")) {
-		p = strtok(NULL, " \t\n\r");
-		boundingBox_width = atoi(p);
-		p = strtok(NULL, " \t\n\r");
-		boundingBox_height = atoi(p);
-		p = strtok(NULL, " \t\n\r");
-		boundingBox_xoff = atoi(p);
-		p = strtok(NULL, " \t\n\r");
-		boundingBox_yoff = atoi(p);
-	} else if (!strcasecmp(s, "CHARS")) {
-		p = strtok(NULL, " \t\n\r");
-		chars = atoi(p);
-		break;
-	}
+		if (fgets(buff, sizeof(buff), bdf) == NULL)
+			break;// EOF.
+
+		s = strtok(buff, " \t\n\r");
+		if (s == NULL)
+			break;// Empty line.
+
+		if (!strcasecmp(s, "FONTBOUNDINGBOX")) {
+			p = strtok(NULL, " \t\n\r");
+			boundingBox_width = atoi(p);
+			p = strtok(NULL, " \t\n\r");
+			boundingBox_height = atoi(p);
+			p = strtok(NULL, " \t\n\r");
+			boundingBox_xos = atoi(p);
+			p = strtok(NULL, " \t\n\r");
+			boundingBox_yos = atoi(p);
+		} else if (!strcasecmp(s, "CHARS")) {
+			p = strtok(NULL, " \t\n\r");
+			nChars = atoi(p);
+			break;
+		}
 	}
 
-	info(out, name, boundingBox_width, boundingBox_height, chars);
+	info(out, name, boundingBox_width, boundingBox_height, nChars);
 
 	//	Some checks.
 	if (boundingBox_width <= 0 || boundingBox_height <= 0) {
 	fprintf(stderr, "Need to know the character size\n");
 	exit(-1);
 	}
-	if (chars <= 0) {
+	if (nChars <= 0) {
 	fprintf(stderr, "Need to know the number of characters\n");
 	exit(-1);
 	}
 
 	//	Allocate tables
-	width_table = malloc(chars * sizeof(*width_table));
+	width_table = malloc(nChars * sizeof(*width_table));
 	if (!width_table) {
 	fprintf(stderr, "Out of memory\n");
 	exit(-1);
 	}
-	encoding_table = malloc(chars * sizeof(*encoding_table));
+	encoding_table = malloc(nChars * sizeof(*encoding_table));
 	if (!encoding_table) {
 	fprintf(stderr, "Out of memory\n");
 	exit(-1);
@@ -276,10 +273,10 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 	width = INT_MIN;
 	strcpy(charname, "unknown character");
 	for (;;) {
-	if (!fgets(linebuf, sizeof(linebuf), bdf)) {	// EOF
+	if (!fgets(buff, sizeof(buff), bdf)) {	// EOF
 		break;
 	}
-	if (!(s = strtok(linebuf, " \t\n\r"))) {	// empty line
+	if (!(s = strtok(buff, " \t\n\r"))) {	// empty line
 		break;
 	}
 	// printf("token:%s\n", s);
@@ -306,7 +303,7 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 		fprintf(out, "//\twidth %d, bbx %d, bby %d, bbw %d, bbh %d\n",
 		width, bbx, bby, bbw, bbh);
 
-		if (n == chars) {
+		if (n == nChars) {
 		fprintf(stderr, "Too many bitmaps for characters\n");
 		exit(-1);
 		}
@@ -340,7 +337,7 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 		}
 
 		processChar(out, bitmap, boundingBox_width,
-		boundingBox_height, boundingBox_yoff, bbh, bby);
+		boundingBox_height, boundingBox_yos, bbh, bby);
 		scanline = -1;
 		width = INT_MIN;
 	} else {
