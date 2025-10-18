@@ -47,7 +47,7 @@ int main() {
 // -- t_bdf_data bdf_data
 //==============================================================================
 
-void write_info(FILE *out, char *name, t_bdf_data bdf_data) {
+void write_bdf_data(FILE *out, char *name, t_bdf_data bdf_data) {
 
 	fprintf(out, "// Bitmap font info struct def.\n");
 	fprintf(out, "typedef struct {\n");
@@ -182,7 +182,7 @@ void RotateBitmap(unsigned char *bitmap, int shift, int width, int height) {
 // -- error count.
 //==============================================================================
 
-int write_errors(t_bdf_data bdf_data) {
+int write_check_errors(t_bdf_data bdf_data) {
 	int errVal = 0;
 
 	if (bdf_data.bBox_width <= 0 || bdf_data.bBox_height <= 0) {
@@ -197,6 +197,48 @@ int write_errors(t_bdf_data bdf_data) {
 	return errVal;
 }
 
+
+//==============================================================================
+//
+//==============================================================================
+
+t_bdf_data get_bdf_data(FILE *bdf, char *buff) {
+
+	t_bdf_data  bdf_data = {
+		0,	// bBox_width;
+		0,	// bBox_height;
+		0,	// bBox_xos;
+		0,	// bBox_yos;
+		0,	// nChars;
+	};
+	
+	char *s;
+	char *p;
+
+	while (1) {
+	if (fgets(buff, sizeof(buff), bdf) == NULL)
+		break;// EOF.
+
+	s = strtok(buff, " \t\n\r");
+	if (s == NULL)
+		break;// Empty line.
+
+	if (!strcasecmp(s, "FONTBOUNDINGBOX")) {
+		p = strtok(NULL, " \t\n\r");
+		bdf_data.bBox_width = atoi(p);
+		p = strtok(NULL, " \t\n\r");
+		bdf_data.bBox_height = atoi(p);
+		p = strtok(NULL, " \t\n\r");
+		bdf_data.bBox_xos = atoi(p);
+		p = strtok(NULL, " \t\n\r");
+		bdf_data.bBox_yos = atoi(p);
+	} else if (!strcasecmp(s, "CHARS")) {
+		p = strtok(NULL, " \t\n\r");
+		bdf_data.nChars = atoi(p);
+		break;
+	}
+}
+}
 //==============================================================================
 //	process bdf font file.
 //==============================================================================
@@ -208,21 +250,17 @@ int write_errors(t_bdf_data bdf_data) {
 
 void process_bdf(FILE *bdf, FILE *out, char *name) {
 	char buff[1024];
-	char *s;
-	char *p;
+//	char *s;
+//	char *p;
 
-	t_bdf_data  bdf_data = {
-		0,	// bBox_width;
-		0,	// bBox_height;
-		0,	// bBox_xos;
-		0,	// bBox_yos;
-		0,	// nChars;
-	};
+	t_bdf_data  bdf_data;
 
 	int i;
 	int j;
+	
 	int n;
 	int scanline;
+
 	char charname[1024];
 	int encoding;
 	int bbx;
@@ -230,37 +268,15 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 	int bbw;
 	int bbh;
 	int width;
+
 	unsigned *width_table;
 	unsigned *encoding_table;
 	unsigned char *bitmap;
 
-	while (1) {
-		if (fgets(buff, sizeof(buff), bdf) == NULL)
-			break;// EOF.
+	bdf_data = get_bdf_data(bdf, buff);
+	write_bdf_data(out, name, bdf_data);
 
-		s = strtok(buff, " \t\n\r");
-		if (s == NULL)
-			break;// Empty line.
-
-		if (!strcasecmp(s, "FONTBOUNDINGBOX")) {
-			p = strtok(NULL, " \t\n\r");
-			bdf_data.bBox_width = atoi(p);
-			p = strtok(NULL, " \t\n\r");
-			bdf_data.bBox_height = atoi(p);
-			p = strtok(NULL, " \t\n\r");
-			bdf_data.bBox_xos = atoi(p);
-			p = strtok(NULL, " \t\n\r");
-			bdf_data.bBox_yos = atoi(p);
-		} else if (!strcasecmp(s, "CHARS")) {
-			p = strtok(NULL, " \t\n\r");
-			bdf_data.nChars = atoi(p);
-			break;
-		}
-	}
-
-	write_info(out, name, bdf_data);
-
-	if(write_errors(bdf_data) > 0)
+	if(write_check_errors(bdf_data) > 0)
 		exit(-1); 
 
 	//	Allocate tables
@@ -286,6 +302,7 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 
 	scanline = -1;
 	n = 0;
+
 	encoding = -1;
 	bbx = 0;
 	bby = 0;
@@ -294,14 +311,13 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 	width = INT_MIN;
 	strcpy(charname, "unknown character");
 
-	for (;;) {
-		if (!fgets(buff, sizeof(buff), bdf)) {	// EOF
-			break;
-		}
-		if (!(s = strtok(buff, " \t\n\r"))) {	// empty line
-			break;
-		}
-		// printf("token:%s\n", s);
+	while (1) {
+		if (!fgets(buff, sizeof(buff), bdf))
+			break;// EOF.
+
+		if (!(s = strtok(buff, " \t\n\r")))
+			break;// Empty line.
+
 		if (!strcasecmp(s, "STARTCHAR")) {
 			p = strtok(NULL, " \t\n\r");
 			strcpy(charname, p);
@@ -333,11 +349,9 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 				fprintf(stderr, "character width not specified\n");
 				exit(-1);
 			}
-			//
-			//	Adjust width based on bounding box
-			//
+
 			if (bbx < 0) {
-				width -= bbx;
+				width -= bbx;//	Width adjustment.
 				bbx = 0;
 			}
 			if (bbx + bbw > width) {
@@ -383,8 +397,6 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 	}
 
 	fprintf(out, "};\n"); // Cierre de corchete arreglo.
-
-
 }
 
 
