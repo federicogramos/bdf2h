@@ -22,7 +22,12 @@ typedef struct {
 	int nChars;
 } t_bdf_data;
 
-void process_bdf(FILE * bdf, FILE * out, char *fontName);
+typedef struct{
+	int flag_hex;
+	char *fontName;
+} t_settings;
+
+void process_bdf(FILE * bdf, FILE * out, t_settings settings);
 
 
 //==============================================================================
@@ -30,16 +35,16 @@ void process_bdf(FILE * bdf, FILE * out, char *fontName);
 //==============================================================================
 
 int main(int argc, char *argv[]) {
-	char *fontName = NULL;
 	int flag_h = 0;
-	char *out_filename = NULL;
-	char *in_filename = NULL;
-
+	char *out_filename = NULL, *in_filename = NULL;
+	t_settings settings = {0, NULL};
 	FILE *in, *out;
 
 	for (int i = 1; i < argc; i++) {
 		if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
 			flag_h = 1;
+		} else if (strcmp(argv[i], "--hex") == 0) {
+			settings.flag_hex = 1;
 		} else if (strcmp(argv[i], "-o") == 0) {
 			if (i + 1 < argc) {
 				out_filename = argv[i + 1];
@@ -58,10 +63,10 @@ int main(int argc, char *argv[]) {
 			}
 		} else if (strcmp(argv[i], "-n") == 0) {
 			if (i + 1 < argc) {
-				fontName = argv[i + 1];
+				settings.fontName = argv[i + 1];
 				i++; // Skip filename in next iteration.
 			} else {
-				fprintf(stderr, "Error: -f flag requires a fontname.\n");
+				fprintf(stderr, "Error: -f flag requires a fontName.\n");
 				return 1;
 			}
 		} else {
@@ -72,11 +77,11 @@ int main(int argc, char *argv[]) {
 	if(flag_h) {
 		printf("Usage: bdf2h [option(s)]\n");
 		printf("Converts a font in bdf format to bitmap C array format.\n");
-		printf("-h\t\tThis help description.\n");
+		printf("-h --help\tThis help text.\n");
 		printf("-i <filename>\tInput font file in bdf format.\n");
 		printf("-o <filename>\tOutput file to generate (default = stdout).\n");
-		printf("-h\t\tElements in C array output are in hex (default = binary).\n");
-		printf("-n <fontname>\tFontname used to write array (default = input filename without extension).\n");
+		printf("--hex\t\tElements in C array output are in hex (default = binary).\n");
+		printf("-n <fontName>\tFont name used to write array (default = input filename without extension).\n");
 		return 0;
 	}
 
@@ -92,8 +97,8 @@ int main(int argc, char *argv[]) {
 		return 0;
 	}
 
-	if(fontName == NULL) {
-		fontName = strtok(in_filename, ".");
+	if(settings.fontName == NULL) {
+		settings.fontName = strtok(in_filename, ".");
 	}
 
 	if(out_filename != NULL) {
@@ -106,14 +111,9 @@ int main(int argc, char *argv[]) {
 		out = stdout;
 	}
 
-	process_bdf(in, out, fontName);
+	process_bdf(in, out, settings);
 	return 0;
 }
-
-
-
-
-
 
 
 //==============================================================================
@@ -121,11 +121,11 @@ int main(int argc, char *argv[]) {
 //==============================================================================
 // Argumentos:
 // -- out = output stream.
-// -- fontName
+// -- settings = structure with configurations.
 // -- t_bdf_data bdf_data
 //==============================================================================
 
-void write_bdf_data(FILE *out, char *name, t_bdf_data bdf_data) {
+void write_bdf_data(FILE *out, t_settings settings, t_bdf_data bdf_data) {
 
 	fprintf(out, "// Bitmap font info struct def.\n");
 	fprintf(out, "typedef struct {\n");
@@ -134,12 +134,13 @@ void write_bdf_data(FILE *out, char *name, t_bdf_data bdf_data) {
 	fprintf(out, "\tint nChars;\n");
 	fprintf(out, "} bmp_font_inf;\n\n");
 
-	fprintf(out, "bmp_font_inf %s_inf = { %d, %d, %d };\n\n", name, bdf_data.bBox_width, bdf_data.bBox_height, bdf_data.nChars);
+	fprintf(out, "bmp_font_inf %s_inf = { %d, %d, %d };\n\n", settings.fontName, 
+		bdf_data.bBox_width, bdf_data.bBox_height, bdf_data.nChars);
 }
 
 
 //==============================================================================
-// write_char
+// write_char | output based on font info
 //==============================================================================
 
 void write_char(FILE * out, unsigned char *bitmap, int fontwidth,
@@ -235,7 +236,8 @@ int write_check_errors(t_bdf_data bdf_data) {
 	int errVal = 0;
 
 	if (bdf_data.bBox_width <= 0 || bdf_data.bBox_height <= 0) {
-		fprintf(stderr, "Boundingbox size error. { w, h } = { %d, %d }\n", bdf_data.bBox_width, bdf_data.bBox_height);
+		fprintf(stderr, "Boundingbox size error. { w, h } = { %d, %d }\n", 
+			bdf_data.bBox_width, bdf_data.bBox_height);
 		errVal++;
 	}
 	if (bdf_data.nChars <= 0) {
@@ -295,7 +297,8 @@ t_bdf_data get_bdf_data(FILE *bdf) {
 //
 //==============================================================================
 
-void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data, unsigned char *bitmap) {
+void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data, 
+	unsigned char *bitmap) {
 
 	int i, j;
 	char *s, *p;
@@ -351,7 +354,8 @@ void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data, unsigned char *bi
 			width, bbx, bby, bbw, bbh);
 
 			if (n == bdf_data.nChars) {
-				fprintf(stderr, "Error: bdf file declares less than actually in file.\n");
+				fprintf(stderr, 
+					"Error: bdf file declares less than actually in file.\n");
 				exit(-1);
 			}
 			if (width == INT_MIN) {
@@ -409,10 +413,10 @@ void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data, unsigned char *bi
 // Recibe:
 // -- bdf = stream input bdf file.
 // -- out = output stream.
-// -- name font variable name in C source file
+// -- settings = structure with program settings configured.
 //==============================================================================
 
-void process_bdf(FILE *bdf, FILE *out, char *name) {
+void process_bdf(FILE *bdf, FILE *out, t_settings settings) {
 
 	t_bdf_data  bdf_data;
 
@@ -421,7 +425,7 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 	unsigned char *bitmap;
 
 	bdf_data = get_bdf_data(bdf);
-	write_bdf_data(out, name, bdf_data);
+	write_bdf_data(out, settings, bdf_data);
 
 	if(write_check_errors(bdf_data) > 0)
 		exit(-1); 
@@ -445,7 +449,7 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 		exit(-1);
 	}
 
-	fprintf(out, "const unsigned char %s_bmp[] = {\n", name);// Begins array.
+	fprintf(out, "const unsigned char %s_bmp[] = {\n", settings.fontName);// Begins array.
 
 
 	get_write_char(bdf, out, bdf_data, bitmap);
