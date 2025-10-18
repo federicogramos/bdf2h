@@ -5,9 +5,9 @@ typedef struct {
 	int nChars;
 } bmp_font_inf;
 
-bmp_font_inf defaultFontName_inf = { 8, 16, 256 };
+bmp_font_inf fede_inf = { 8, 16, 256 };
 
-const unsigned char defaultFontName_bmp[] = {
+const unsigned char fede_bmp[] = {
 // 000 0x00 'uni0000'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,

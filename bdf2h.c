@@ -30,12 +30,12 @@ void process_bdf(FILE * bdf, FILE * out, char *fontName);
 //==============================================================================
 
 int main(int argc, char *argv[]) {
-	char *fontName = "defaultFontName";
+	char *fontName = NULL;
 	int flag_h = 0;
 	char *out_filename = NULL;
 	char *in_filename = NULL;
 
-	FILE *in, *out = stdout;
+	FILE *in, *out;
 
 	for (int i = 1; i < argc; i++) {
 		if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
@@ -56,6 +56,14 @@ int main(int argc, char *argv[]) {
 				fprintf(stderr, "Error: -i flag requires a filename.\n");
 				return 1;
 			}
+		} else if (strcmp(argv[i], "-n") == 0) {
+			if (i + 1 < argc) {
+				fontName = argv[i + 1];
+				i++; // Skip filename in next iteration.
+			} else {
+				fprintf(stderr, "Error: -f flag requires a fontname.\n");
+				return 1;
+			}
 		} else {
 			printf("Unknown argument: %s\n", argv[i]);
 		}
@@ -66,10 +74,12 @@ int main(int argc, char *argv[]) {
 		printf("Converts a font in bdf format to bitmap C array format.\n");
 		printf("-h\t\tThis help description.\n");
 		printf("-i <filename>\tInput font file in bdf format.\n");
-		printf("-o <filename>\tOutput file to generate (stdout by default).\n");
-		printf("-h\t\tElements in C array output are in hex (binary by default).\n");
+		printf("-o <filename>\tOutput file to generate (default = stdout).\n");
+		printf("-h\t\tElements in C array output are in hex (default = binary).\n");
+		printf("-n <fontname>\tFontname used to write array (default = input filename without extension).\n");
 		return 0;
 	}
+
 	if(in_filename != NULL) {
 		in = fopen(in_filename, "r");
 		if(in == NULL) {
@@ -81,6 +91,21 @@ int main(int argc, char *argv[]) {
 		fprintf(stderr, "Use -i <filename> to specify font to convert.\n");
 		return 0;
 	}
+
+	if(fontName == NULL) {
+		fontName = strtok(in_filename, ".");
+	}
+
+	if(out_filename != NULL) {
+		out = fopen(out_filename, "w");
+		if(out == NULL) {
+			fprintf(stderr, "Error opening output file %s.\n", out_filename);
+			return 0;
+		}
+	} else {
+		out = stdout;
+	}
+
 	process_bdf(in, out, fontName);
 	return 0;
 }
