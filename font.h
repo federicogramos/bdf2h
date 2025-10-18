@@ -1,13 +1,13 @@
-// Bitmap font struct def.
+// Bitmap font info struct def.
 typedef struct {
 	int width;
 	int height;
 	int nChars;
-} bmp_font;
+} bmp_font_inf;
 
-bmp_font default_font_name = { 8, 16, 256 };
+bmp_font_inf defaultFontName_inf = { 8, 16, 256 };
 
-const unsigned char default_font_name_bitmap[] = {
+const unsigned char defaultFontName_bmp[] = {
 //   0 $00 'uni0000'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,

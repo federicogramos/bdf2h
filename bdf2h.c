@@ -31,7 +31,7 @@ void process_bdf(FILE * bdf, FILE * out, char *fontName);
 
 int main() {
 	char *fontName;
-	fontName = "default_font_name";
+	fontName = "defaultFontName";
 
 	process_bdf(stdin, stdout, fontName);
 	return 0;
@@ -49,14 +49,14 @@ int main() {
 
 void info(FILE *out, char *name, t_bdf_data bdf_data) {
 
-	fprintf(out, "// Bitmap font struct def.\n");
+	fprintf(out, "// Bitmap font info struct def.\n");
 	fprintf(out, "typedef struct {\n");
 	fprintf(out, "\tint width;\n");
 	fprintf(out, "\tint height;\n");
 	fprintf(out, "\tint nChars;\n");
-	fprintf(out, "} bmp_font;\n\n");
+	fprintf(out, "} bmp_font_inf;\n\n");
 
-	fprintf(out, "bmp_font %s = { %d, %d, %d };\n\n", name, bdf_data.bBox_width, bdf_data.bBox_height, bdf_data.nChars);
+	fprintf(out, "bmp_font_inf %s_inf = { %d, %d, %d };\n\n", name, bdf_data.bBox_width, bdf_data.bBox_height, bdf_data.nChars);
 }
 
 
@@ -155,25 +155,24 @@ int hexChar2int(char *p) {
 ///	@param width	character width
 ///	@param height	character height
 ///
-void RotateBitmap(unsigned char *bitmap, int shift, int width, int height)
-{
+void RotateBitmap(unsigned char *bitmap, int shift, int width, int height) {
 	int x;
 	int y;
 	int c;
 	int o;
 
 	if (shift < 0 || shift > 7) {
-	fprintf(stderr, "This shift isn't supported\n");
-	exit(-1);
+		fprintf(stderr, "This shift isn't supported\n");
+		exit(-1);
 	}
 
 	for (y = 0; y < height; ++y) {
-	o = 0;
-	for (x = 0; x < width; x += 8) {
-		c = bitmap[y * ((width + 7) / 8) + x / 8];
-		bitmap[y * ((width + 7) / 8) + x / 8] = c >> shift | o;
-		o = c << (8 - shift);
-	}
+		o = 0;
+		for (x = 0; x < width; x += 8) {
+			c = bitmap[y * ((width + 7) / 8) + x / 8];
+			bitmap[y * ((width + 7) / 8) + x / 8] = c >> shift | o;
+			o = c << (8 - shift);
+		}
 	}
 }
 
@@ -282,7 +281,7 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 	exit(-1);
 	}
 
-	fprintf(out, "const unsigned char %s_bitmap[] = {\n", name);// Begins array.
+	fprintf(out, "const unsigned char %s_bmp[] = {\n", name);// Begins array.
 
 	scanline = -1;
 	n = 0;
