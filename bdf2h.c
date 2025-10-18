@@ -143,7 +143,7 @@ void write_bdf_data(FILE *out, t_settings settings, t_bdf_data bdf_data) {
 // write_char | output based on font info
 //==============================================================================
 
-void write_char(FILE * out, unsigned char *bitmap, int fontwidth,
+void write_char(FILE *out, t_settings settings, unsigned char *bitmap, int fontwidth,
 	int fontheight, int fontyoffset, int charheight, int charyoffset) {
 
 	int x;
@@ -298,11 +298,11 @@ t_bdf_data get_bdf_data(FILE *bdf) {
 
 
 //==============================================================================
-//
+// get_write_char | parses font and writes to output file
 //==============================================================================
 
-void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data, 
-	unsigned char *bitmap) {
+void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data,
+	t_settings settings, unsigned char *bitmap) {
 
 	int i, j;
 	char *s, *p;
@@ -359,7 +359,7 @@ void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data,
 
 			if (n == bdf_data.nChars) {
 				fprintf(stderr, 
-					"Error: bdf file declares less than actually in file.\n");
+					"Error: bdf metadata declares less chars han actually inside.\n");
 				exit(-1);
 			}
 			if (width == INT_MIN) {
@@ -383,7 +383,7 @@ void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data,
 			memset(bitmap, 0, ((bdf_data.bBox_width + 7) / 8) * bdf_data.bBox_height);
 		} else if (!strcasecmp(s, "ENDCHAR")) {
 
-			write_char(out, bitmap, bdf_data.bBox_width, bdf_data.bBox_height,
+			write_char(out, settings, bitmap, bdf_data.bBox_width, bdf_data.bBox_height,
 				bdf_data.bBox_yos, bbh, bby);
 			scanline = -1;
 			width = INT_MIN;
@@ -456,7 +456,7 @@ void process_bdf(FILE *bdf, FILE *out, t_settings settings) {
 	fprintf(out, "const unsigned char %s_bmp[] = {\n", settings.fontName);// Begins array.
 
 
-	get_write_char(bdf, out, bdf_data, bitmap);
+	get_write_char(bdf, out, bdf_data, settings, bitmap);
 
 	fprintf(out, "};\n"); // Cierre de corchete arreglo.
 }
