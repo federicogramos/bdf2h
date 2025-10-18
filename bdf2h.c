@@ -14,6 +14,14 @@
 #include <limits.h>
 
 
+typedef struct {
+	int bBox_width;		// boundingBox_width
+	int bBox_height;	// boundingBox_height
+	int bBox_xos;		// boundingBox_xos
+	int bBox_yos;		// boundingBox_yos
+	int nChars;
+} t_bdf_data;
+
 void process_bdf(FILE * bdf, FILE * out, char *fontName);
 
 
@@ -36,12 +44,10 @@ int main() {
 // Argumentos:
 // -- out = output stream.
 // -- fontName
-// -- width = char width in px.
-// -- height = char height in px.
-// -- nChars = number of characters font has.
+// -- t_bdf_data bdf_data
 //==============================================================================
 
-void info(FILE *out, char *name, int w, int h, int nChars) {
+void info(FILE *out, char *name, t_bdf_data bdf_data) {
 
 	fprintf(out, "// Bitmap font struct def.\n");
 	fprintf(out, "typedef struct {\n");
@@ -50,7 +56,7 @@ void info(FILE *out, char *name, int w, int h, int nChars) {
 	fprintf(out, "\tint nChars;\n");
 	fprintf(out, "} bmp_font;\n\n");
 
-	fprintf(out, "bmp_font %s = { %d, %d, %d };\n\n", name, w, h, nChars);
+	fprintf(out, "bmp_font %s = { %d, %d, %d };\n\n", name, bdf_data.bBox_width, bdf_data.bBox_height, bdf_data.nChars);
 }
 
 
@@ -128,12 +134,11 @@ void processChar(FILE * out, unsigned char *bitmap, int fontwidth,
 //==============================================================================
 //
 //==============================================================================
-// @param p	hex input character (0-9a-fA-F)
-//
-// @returns converted integer
+// Argummentos:
+// -- p = hex char 0-9 a-f A-F
 //==============================================================================
 
-int hex2int(char *p) {
+int hexChar2int(char *p) {
 	if (*p <= '9')
 		return *p - '0';
 	else if (*p <= 'F')
@@ -174,7 +179,26 @@ void RotateBitmap(unsigned char *bitmap, int shift, int width, int height)
 
 
 //==============================================================================
-//	Read BDF font file.
+//
+//==============================================================================
+
+int print_validate_errs(t_bdf_data bdf_data) {
+	int errVal = 0;
+
+	if (bdf_data.bBox_width <= 0 || bdf_data.bBox_height <= 0) {
+		fprintf(stderr, "Boundingbox size error. { w, h } = { %d, %d }\n", bdf_data.bBox_width, bdf_data.bBox_height);
+		errVal = 1;
+	}
+	if (bdf_data.nChars <= 0) {
+		fprintf(stderr, "Number of chars = %d\n", bdf_data.nChars);
+		errVal = 1;
+	}
+
+	return errVal;
+}
+
+//==============================================================================
+//	process bdf font file.
 //==============================================================================
 // Recibe:
 // -- bdf = stream input bdf file.
@@ -186,11 +210,15 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 	char buff[1024];
 	char *s;
 	char *p;
-	int boundingBox_width = 0;
-	int boundingBox_height = 0;
-	int boundingBox_xos = 0;
-	int boundingBox_yos = 0;
-	int nChars = 0;
+
+	t_bdf_data  bdf_data = {
+		0,	// bBox_width;
+		0,	// bBox_height;
+		0,	// bBox_xos;
+		0,	// bBox_yos;
+		0,	// nChars;
+	};
+
 	int i;
 	int j;
 	int n;
@@ -206,7 +234,7 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 	unsigned *encoding_table;
 	unsigned char *bitmap;
 
-	for (;;) {
+	while (1) {
 		if (fgets(buff, sizeof(buff), bdf) == NULL)
 			break;// EOF.
 
@@ -216,46 +244,39 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 
 		if (!strcasecmp(s, "FONTBOUNDINGBOX")) {
 			p = strtok(NULL, " \t\n\r");
-			boundingBox_width = atoi(p);
+			bdf_data.bBox_width = atoi(p);
 			p = strtok(NULL, " \t\n\r");
-			boundingBox_height = atoi(p);
+			bdf_data.bBox_height = atoi(p);
 			p = strtok(NULL, " \t\n\r");
-			boundingBox_xos = atoi(p);
+			bdf_data.bBox_xos = atoi(p);
 			p = strtok(NULL, " \t\n\r");
-			boundingBox_yos = atoi(p);
+			bdf_data.bBox_yos = atoi(p);
 		} else if (!strcasecmp(s, "CHARS")) {
 			p = strtok(NULL, " \t\n\r");
-			nChars = atoi(p);
+			bdf_data.nChars = atoi(p);
 			break;
 		}
 	}
 
-	info(out, name, boundingBox_width, boundingBox_height, nChars);
+	info(out, name, bdf_data);
 
-	//	Some checks.
-	if (boundingBox_width <= 0 || boundingBox_height <= 0) {
-	fprintf(stderr, "Need to know the character size\n");
-	exit(-1);
-	}
-	if (nChars <= 0) {
-	fprintf(stderr, "Need to know the number of characters\n");
-	exit(-1);
-	}
+	if(print_validate_errs(bdf_data) > 0)
+		exit(-1); 
 
 	//	Allocate tables
-	width_table = malloc(nChars * sizeof(*width_table));
+	width_table = malloc(bdf_data.nChars * sizeof(*width_table));
 	if (!width_table) {
 	fprintf(stderr, "Out of memory\n");
 	exit(-1);
 	}
-	encoding_table = malloc(nChars * sizeof(*encoding_table));
+	encoding_table = malloc(bdf_data.nChars * sizeof(*encoding_table));
 	if (!encoding_table) {
 	fprintf(stderr, "Out of memory\n");
 	exit(-1);
 	}
 
 	bitmap =
-	malloc(((boundingBox_width + 7) / 8) * boundingBox_height);
+	malloc(((bdf_data.bBox_width + 7) / 8) * bdf_data.bBox_height);
 	if (!bitmap) {
 	fprintf(stderr, "Out of memory\n");
 	exit(-1);
@@ -303,7 +324,7 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 		fprintf(out, "//\twidth %d, bbx %d, bby %d, bbw %d, bbh %d\n",
 		width, bbx, bby, bbw, bbh);
 
-		if (n == nChars) {
+		if (n == bdf_data.nChars) {
 		fprintf(stderr, "Too many bitmaps for characters\n");
 		exit(-1);
 		}
@@ -329,15 +350,15 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 		scanline = 0;
 	
 		memset(bitmap, 0,
-		((boundingBox_width + 7) / 8) * boundingBox_height);
+		((bdf_data.bBox_width + 7) / 8) * bdf_data.bBox_height);
 	} else if (!strcasecmp(s, "ENDCHAR")) {
 		if (bbx) {
-		RotateBitmap(bitmap, bbx, boundingBox_width,
-			boundingBox_height);
+		RotateBitmap(bitmap, bbx, bdf_data.bBox_width,
+			bdf_data.bBox_height);
 		}
 
-		processChar(out, bitmap, boundingBox_width,
-		boundingBox_height, boundingBox_yos, bbh, bby);
+		processChar(out, bitmap, bdf_data.bBox_width,
+		bdf_data.bBox_height, bdf_data.bBox_yos, bbh, bby);
 		scanline = -1;
 		width = INT_MIN;
 	} else {
@@ -345,18 +366,18 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 		p = s;
 		j = 0;
 		while (*p) {
-			i = hex2int(p);
+			i = hexChar2int(p);
 			++p;
 			if (*p) {
-			i = hex2int(p) | i * 16;
+			i = hexChar2int(p) | i * 16;
 			} else {
-			bitmap[j + scanline * ((boundingBox_width +
+			bitmap[j + scanline * ((bdf_data.bBox_width +
 					7) / 8)] = i;
 			break;
 			}
 			/* printf("%d = %d\n",
-			j + scanline * ((boundingBox_width + 7)/8), i); */
-			bitmap[j + scanline * ((boundingBox_width + 7) / 8)] =
+			j + scanline * ((bdf_data.bBox_width + 7)/8), i); */
+			bitmap[j + scanline * ((bdf_data.bBox_width + 7) / 8)] =
 			i;
 			++j;
 			++p;

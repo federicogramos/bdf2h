@@ -2,12 +2,12 @@
 typedef struct {
 	int width;
 	int height;
-	int chars;
+	int nChars;
 } bmp_font;
 
-bmp_font font = { 8, 16, 256 };
+bmp_font default_font_name = { 8, 16, 256 };
 
-const unsigned char font_bitmap[] = {
+const unsigned char default_font_name_bitmap[] = {
 //   0 $00 'uni0000'
 //	width 4, bbx 0, bby 0, bbw 1, bbh 1
 	--------,
