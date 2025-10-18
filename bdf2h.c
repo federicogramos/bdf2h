@@ -302,11 +302,11 @@ void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data, unsigned char *bi
 			width, bbx, bby, bbw, bbh);
 
 			if (n == bdf_data.nChars) {
-				fprintf(stderr, "Too many bitmaps for characters\n");
+				fprintf(stderr, "Error: bdf file declares less than actually in file.\n");
 				exit(-1);
 			}
 			if (width == INT_MIN) {
-				fprintf(stderr, "character width not specified\n");
+				fprintf(stderr, "Char width not specified.\n");
 				exit(-1);
 			}
 
@@ -314,9 +314,8 @@ void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data, unsigned char *bi
 				width -= bbx;//	Width adjustment.
 				bbx = 0;
 			}
-			if (bbx + bbw > width) {
+			if (bbx + bbw > width)
 				width = bbx + bbw;
-			}
 
 			//width_table[n] = width;// No width table, will use monospace.
 			//encoding_table[n] = encoding;// Will not use an encoding table.
@@ -326,9 +325,9 @@ void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data, unsigned char *bi
 		
 			memset(bitmap, 0, ((bdf_data.bBox_width + 7) / 8) * bdf_data.bBox_height);
 		} else if (!strcasecmp(s, "ENDCHAR")) {
-			if (bbx) {
-				RotateBitmap(bitmap, bbx, bdf_data.bBox_width, bdf_data.bBox_height);
-			}
+			//if (bbx) {
+			//	RotateBitmap(bitmap, bbx, bdf_data.bBox_width, bdf_data.bBox_height);
+			//}
 
 			write_char(out, bitmap, bdf_data.bBox_width, bdf_data.bBox_height,
 				bdf_data.bBox_yos, bbh, bby);
