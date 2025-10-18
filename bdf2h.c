@@ -47,7 +47,7 @@ int main() {
 // -- t_bdf_data bdf_data
 //==============================================================================
 
-void info(FILE *out, char *name, t_bdf_data bdf_data) {
+void write_info(FILE *out, char *name, t_bdf_data bdf_data) {
 
 	fprintf(out, "// Bitmap font info struct def.\n");
 	fprintf(out, "typedef struct {\n");
@@ -74,7 +74,7 @@ void processChar(FILE * out, unsigned char *bitmap, int fontwidth,
 	// Rows from the top of bounding box is the top of character.
 	int yoffset = fontheight - charheight + (fontyoffset - charyoffset);
 
-	for (y = 0; y < fontheight; ++y) {
+	for (y = 0; y < fontheight; y++) {
 		fputc('\t', out);
 		for (x = 0; x < fontwidth; x += 8) {
 
@@ -166,7 +166,7 @@ void RotateBitmap(unsigned char *bitmap, int shift, int width, int height) {
 		exit(-1);
 	}
 
-	for (y = 0; y < height; ++y) {
+	for (y = 0; y < height; y++) {
 		o = 0;
 		for (x = 0; x < width; x += 8) {
 			c = bitmap[y * ((width + 7) / 8) + x / 8];
@@ -178,19 +178,20 @@ void RotateBitmap(unsigned char *bitmap, int shift, int width, int height) {
 
 
 //==============================================================================
-//
+// Returns:
+// -- error count.
 //==============================================================================
 
-int print_validate_errs(t_bdf_data bdf_data) {
+int write_errors(t_bdf_data bdf_data) {
 	int errVal = 0;
 
 	if (bdf_data.bBox_width <= 0 || bdf_data.bBox_height <= 0) {
 		fprintf(stderr, "Boundingbox size error. { w, h } = { %d, %d }\n", bdf_data.bBox_width, bdf_data.bBox_height);
-		errVal = 1;
+		errVal++;
 	}
 	if (bdf_data.nChars <= 0) {
 		fprintf(stderr, "Number of chars = %d\n", bdf_data.nChars);
-		errVal = 1;
+		errVal++;
 	}
 
 	return errVal;
@@ -257,28 +258,28 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 		}
 	}
 
-	info(out, name, bdf_data);
+	write_info(out, name, bdf_data);
 
-	if(print_validate_errs(bdf_data) > 0)
+	if(write_errors(bdf_data) > 0)
 		exit(-1); 
 
 	//	Allocate tables
 	width_table = malloc(bdf_data.nChars * sizeof(*width_table));
-	if (!width_table) {
-	fprintf(stderr, "Out of memory\n");
-	exit(-1);
-	}
-	encoding_table = malloc(bdf_data.nChars * sizeof(*encoding_table));
-	if (!encoding_table) {
-	fprintf(stderr, "Out of memory\n");
-	exit(-1);
+	if (width_table == NULL) {
+		fprintf(stderr, "Malloc allocation failed (width_table var).\n");
+		exit(-1);
 	}
 
-	bitmap =
-	malloc(((bdf_data.bBox_width + 7) / 8) * bdf_data.bBox_height);
+	encoding_table = malloc(bdf_data.nChars * sizeof(*encoding_table));
+	if (encoding_table == NULL) {
+		fprintf(stderr, "Malloc allocation failed (encoding_table var).\n");
+		exit(-1);
+	}
+
+	bitmap = malloc(((bdf_data.bBox_width + 7) / 8) * bdf_data.bBox_height);
 	if (!bitmap) {
-	fprintf(stderr, "Out of memory\n");
-	exit(-1);
+		fprintf(stderr, "Malloc allocation failed (bitmap var).\n");
+		exit(-1);
 	}
 
 	fprintf(out, "const unsigned char %s_bmp[] = {\n", name);// Begins array.
@@ -292,98 +293,93 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 	bbh = 0;
 	width = INT_MIN;
 	strcpy(charname, "unknown character");
+
 	for (;;) {
-	if (!fgets(buff, sizeof(buff), bdf)) {	// EOF
-		break;
-	}
-	if (!(s = strtok(buff, " \t\n\r"))) {	// empty line
-		break;
-	}
-	// printf("token:%s\n", s);
-	if (!strcasecmp(s, "STARTCHAR")) {
-		p = strtok(NULL, " \t\n\r");
-		strcpy(charname, p);
-	} else if (!strcasecmp(s, "ENCODING")) {
-		p = strtok(NULL, " \t\n\r");
-		encoding = atoi(p);
-	} else if (!strcasecmp(s, "DWIDTH")) {
-		p = strtok(NULL, " \t\n\r");
-		width = atoi(p);
-	} else if (!strcasecmp(s, "BBX")) {
-		p = strtok(NULL, " \t\n\r");
-		bbw = atoi(p);
-		p = strtok(NULL, " \t\n\r");
-		bbh = atoi(p);
-		p = strtok(NULL, " \t\n\r");
-		bbx = atoi(p);
-		p = strtok(NULL, " \t\n\r");
-		bby = atoi(p);
-	} else if (!strcasecmp(s, "BITMAP")) {
-		fprintf(out, "// %3d $%02x '%s'\n", encoding, encoding, charname);
-		fprintf(out, "//\twidth %d, bbx %d, bby %d, bbw %d, bbh %d\n",
-		width, bbx, bby, bbw, bbh);
-
-		if (n == bdf_data.nChars) {
-		fprintf(stderr, "Too many bitmaps for characters\n");
-		exit(-1);
-		}
-		if (width == INT_MIN) {
-		fprintf(stderr, "character width not specified\n");
-		exit(-1);
-		}
-		//
-		//	Adjust width based on bounding box
-		//
-		if (bbx < 0) {
-		width -= bbx;
-		bbx = 0;
-		}
-		if (bbx + bbw > width) {
-		width = bbx + bbw;
-		}
-
-		width_table[n] = width;
-		encoding_table[n] = encoding;
-		++n;
-
-		scanline = 0;
-	
-		memset(bitmap, 0,
-		((bdf_data.bBox_width + 7) / 8) * bdf_data.bBox_height);
-	} else if (!strcasecmp(s, "ENDCHAR")) {
-		if (bbx) {
-		RotateBitmap(bitmap, bbx, bdf_data.bBox_width,
-			bdf_data.bBox_height);
-		}
-
-		processChar(out, bitmap, bdf_data.bBox_width,
-		bdf_data.bBox_height, bdf_data.bBox_yos, bbh, bby);
-		scanline = -1;
-		width = INT_MIN;
-	} else {
-		if (scanline >= 0) {
-		p = s;
-		j = 0;
-		while (*p) {
-			i = hexChar2int(p);
-			++p;
-			if (*p) {
-			i = hexChar2int(p) | i * 16;
-			} else {
-			bitmap[j + scanline * ((bdf_data.bBox_width +
-					7) / 8)] = i;
+		if (!fgets(buff, sizeof(buff), bdf)) {	// EOF
 			break;
+		}
+		if (!(s = strtok(buff, " \t\n\r"))) {	// empty line
+			break;
+		}
+		// printf("token:%s\n", s);
+		if (!strcasecmp(s, "STARTCHAR")) {
+			p = strtok(NULL, " \t\n\r");
+			strcpy(charname, p);
+		} else if (!strcasecmp(s, "ENCODING")) {
+			p = strtok(NULL, " \t\n\r");
+			encoding = atoi(p);
+		} else if (!strcasecmp(s, "DWIDTH")) {
+			p = strtok(NULL, " \t\n\r");
+			width = atoi(p);
+		} else if (!strcasecmp(s, "BBX")) {
+			p = strtok(NULL, " \t\n\r");
+			bbw = atoi(p);
+			p = strtok(NULL, " \t\n\r");
+			bbh = atoi(p);
+			p = strtok(NULL, " \t\n\r");
+			bbx = atoi(p);
+			p = strtok(NULL, " \t\n\r");
+			bby = atoi(p);
+		} else if (!strcasecmp(s, "BITMAP")) {
+			fprintf(out, "// %3d $%02x '%s'\n", encoding, encoding, charname);
+			fprintf(out, "//\twidth %d, bbx %d, bby %d, bbw %d, bbh %d\n",
+			width, bbx, bby, bbw, bbh);
+
+			if (n == bdf_data.nChars) {
+				fprintf(stderr, "Too many bitmaps for characters\n");
+				exit(-1);
 			}
-			/* printf("%d = %d\n",
-			j + scanline * ((bdf_data.bBox_width + 7)/8), i); */
-			bitmap[j + scanline * ((bdf_data.bBox_width + 7) / 8)] =
-			i;
-			++j;
-			++p;
+			if (width == INT_MIN) {
+				fprintf(stderr, "character width not specified\n");
+				exit(-1);
+			}
+			//
+			//	Adjust width based on bounding box
+			//
+			if (bbx < 0) {
+				width -= bbx;
+				bbx = 0;
+			}
+			if (bbx + bbw > width) {
+				width = bbx + bbw;
+			}
+
+			width_table[n] = width;
+			encoding_table[n] = encoding;
+			n++;
+
+			scanline = 0;
+		
+			memset(bitmap, 0, ((bdf_data.bBox_width + 7) / 8) * bdf_data.bBox_height);
+		} else if (!strcasecmp(s, "ENDCHAR")) {
+			if (bbx) {
+				RotateBitmap(bitmap, bbx, bdf_data.bBox_width, bdf_data.bBox_height);
+			}
+
+			processChar(out, bitmap, bdf_data.bBox_width, bdf_data.bBox_height,
+				bdf_data.bBox_yos, bbh, bby);
+			scanline = -1;
+			width = INT_MIN;
+		} else {
+			if (scanline >= 0) {
+				p = s;
+				j = 0;
+				while (*p) {
+					i = hexChar2int(p);
+					p++;
+					if (*p) {
+						i = hexChar2int(p) | i * 16;
+					} else {
+						bitmap[j + scanline * ((bdf_data.bBox_width + 7) / 8)] = i;
+						break;
+					}
+					bitmap[j + scanline * ((bdf_data.bBox_width + 7) / 8)] = i;
+					j++;
+					p++;
+				}
+				scanline++;
+			}
 		}
-		++scanline;
-		}
-	}
 	}
 
 	fprintf(out, "};\n"); // Cierre de corchete arreglo.
