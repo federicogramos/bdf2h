@@ -147,35 +147,6 @@ int hexChar2int(char *p) {
 		return *p - 'a' + 10;
 }
 
-///
-///	Rotate bitmap.
-///
-///	@param bitmap	input bitmap
-///	@param shift	rotate counter (0-7)
-///	@param width	character width
-///	@param height	character height
-///
-void RotateBitmap(unsigned char *bitmap, int shift, int width, int height) {
-	int x;
-	int y;
-	int c;
-	int o;
-
-	if (shift < 0 || shift > 7) {
-		fprintf(stderr, "This shift isn't supported\n");
-		exit(-1);
-	}
-
-	for (y = 0; y < height; y++) {
-		o = 0;
-		for (x = 0; x < width; x += 8) {
-			c = bitmap[y * ((width + 7) / 8) + x / 8];
-			bitmap[y * ((width + 7) / 8) + x / 8] = c >> shift | o;
-			o = c << (8 - shift);
-		}
-	}
-}
-
 
 //==============================================================================
 // Returns:
@@ -325,9 +296,6 @@ void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data, unsigned char *bi
 		
 			memset(bitmap, 0, ((bdf_data.bBox_width + 7) / 8) * bdf_data.bBox_height);
 		} else if (!strcasecmp(s, "ENDCHAR")) {
-			//if (bbx) {
-			//	RotateBitmap(bitmap, bbx, bdf_data.bBox_width, bdf_data.bBox_height);
-			//}
 
 			write_char(out, bitmap, bdf_data.bBox_width, bdf_data.bBox_height,
 				bdf_data.bBox_yos, bbh, bby);
