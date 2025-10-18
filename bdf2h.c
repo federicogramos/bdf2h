@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
 	char *out_filename = NULL;
 	char *in_filename = NULL;
 
-	FILE * in;
+	FILE *in, *out = stdout;
 
 	for (int i = 1; i < argc; i++) {
 		if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
@@ -66,7 +66,7 @@ int main(int argc, char *argv[]) {
 		printf("Converts a font in bdf format to bitmap C array format.\n");
 		printf("-h\t\tThis help description.\n");
 		printf("-i <filename>\tInput font file in bdf format.\n");
-		printf("-o <filename>\tOutput file to generate.\n");
+		printf("-o <filename>\tOutput file to generate (stdout by default).\n");
 		printf("-h\t\tElements in C array output are in hex (binary by default).\n");
 		return 0;
 	}
@@ -81,7 +81,7 @@ int main(int argc, char *argv[]) {
 		fprintf(stderr, "Use -i <filename> to specify font to convert.\n");
 		return 0;
 	}
-	process_bdf(in, stdout, fontName);
+	process_bdf(in, out, fontName);
 	return 0;
 }
 
