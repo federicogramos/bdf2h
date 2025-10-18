@@ -61,10 +61,10 @@ void write_bdf_data(FILE *out, char *name, t_bdf_data bdf_data) {
 
 
 //==============================================================================
-// processChar
+// write_char
 //==============================================================================
 
-void processChar(FILE * out, unsigned char *bitmap, int fontwidth,
+void write_char(FILE * out, unsigned char *bitmap, int fontwidth,
 	int fontheight, int fontyoffset, int charheight, int charyoffset) {
 
 	int x;
@@ -202,7 +202,10 @@ int write_check_errors(t_bdf_data bdf_data) {
 //
 //==============================================================================
 
-t_bdf_data get_bdf_data(FILE *bdf, char *buff) {
+t_bdf_data get_bdf_data(FILE *bdf) {
+
+	char buff[1024];
+	char *s, *p;
 
 	t_bdf_data  bdf_data = {
 		0,	// bBox_width;
@@ -212,54 +215,45 @@ t_bdf_data get_bdf_data(FILE *bdf, char *buff) {
 		0,	// nChars;
 	};
 	
-	char *s;
-	char *p;
-
 	while (1) {
-	if (fgets(buff, sizeof(buff), bdf) == NULL)
-		break;// EOF.
+		if (fgets(buff, sizeof(buff), bdf) == NULL)
+			break;// EOF.
 
-	s = strtok(buff, " \t\n\r");
-	if (s == NULL)
-		break;// Empty line.
+		s = strtok(buff, " \t\n\r");
+		if (s == NULL)
+			break;// Empty line.
 
-	if (!strcasecmp(s, "FONTBOUNDINGBOX")) {
-		p = strtok(NULL, " \t\n\r");
-		bdf_data.bBox_width = atoi(p);
-		p = strtok(NULL, " \t\n\r");
-		bdf_data.bBox_height = atoi(p);
-		p = strtok(NULL, " \t\n\r");
-		bdf_data.bBox_xos = atoi(p);
-		p = strtok(NULL, " \t\n\r");
-		bdf_data.bBox_yos = atoi(p);
-	} else if (!strcasecmp(s, "CHARS")) {
-		p = strtok(NULL, " \t\n\r");
-		bdf_data.nChars = atoi(p);
-		break;
+		if (!strcasecmp(s, "FONTBOUNDINGBOX")) {
+			p = strtok(NULL, " \t\n\r");
+			bdf_data.bBox_width = atoi(p);
+			p = strtok(NULL, " \t\n\r");
+			bdf_data.bBox_height = atoi(p);
+			p = strtok(NULL, " \t\n\r");
+			bdf_data.bBox_xos = atoi(p);
+			p = strtok(NULL, " \t\n\r");
+			bdf_data.bBox_yos = atoi(p);
+		} else if (!strcasecmp(s, "CHARS")) {
+			p = strtok(NULL, " \t\n\r");
+			bdf_data.nChars = atoi(p);
+			break;
+		}
 	}
+	return bdf_data;
 }
-}
+
+
 //==============================================================================
-//	process bdf font file.
-//==============================================================================
-// Recibe:
-// -- bdf = stream input bdf file.
-// -- out = output stream.
-// -- name font variable name in C source file
+//
 //==============================================================================
 
-void process_bdf(FILE *bdf, FILE *out, char *name) {
+void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data, unsigned char *bitmap) {
+
+	int i, j;
+	char *s, *p;
+
 	char buff[1024];
-//	char *s;
-//	char *p;
 
-	t_bdf_data  bdf_data;
-
-	int i;
-	int j;
-	
-	int n;
-	int scanline;
+	int n = 0, scanline = -1;
 
 	char charname[1024];
 	int encoding;
@@ -268,40 +262,6 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 	int bbw;
 	int bbh;
 	int width;
-
-	unsigned *width_table;
-	unsigned *encoding_table;
-	unsigned char *bitmap;
-
-	bdf_data = get_bdf_data(bdf, buff);
-	write_bdf_data(out, name, bdf_data);
-
-	if(write_check_errors(bdf_data) > 0)
-		exit(-1); 
-
-	//	Allocate tables
-	width_table = malloc(bdf_data.nChars * sizeof(*width_table));
-	if (width_table == NULL) {
-		fprintf(stderr, "Malloc allocation failed (width_table var).\n");
-		exit(-1);
-	}
-
-	encoding_table = malloc(bdf_data.nChars * sizeof(*encoding_table));
-	if (encoding_table == NULL) {
-		fprintf(stderr, "Malloc allocation failed (encoding_table var).\n");
-		exit(-1);
-	}
-
-	bitmap = malloc(((bdf_data.bBox_width + 7) / 8) * bdf_data.bBox_height);
-	if (!bitmap) {
-		fprintf(stderr, "Malloc allocation failed (bitmap var).\n");
-		exit(-1);
-	}
-
-	fprintf(out, "const unsigned char %s_bmp[] = {\n", name);// Begins array.
-
-	scanline = -1;
-	n = 0;
 
 	encoding = -1;
 	bbx = 0;
@@ -358,8 +318,8 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 				width = bbx + bbw;
 			}
 
-			width_table[n] = width;
-			encoding_table[n] = encoding;
+			//width_table[n] = width;// No width table, will use monospace.
+			//encoding_table[n] = encoding;// Will not use an encoding table.
 			n++;
 
 			scanline = 0;
@@ -370,7 +330,7 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 				RotateBitmap(bitmap, bbx, bdf_data.bBox_width, bdf_data.bBox_height);
 			}
 
-			processChar(out, bitmap, bdf_data.bBox_width, bdf_data.bBox_height,
+			write_char(out, bitmap, bdf_data.bBox_width, bdf_data.bBox_height,
 				bdf_data.bBox_yos, bbh, bby);
 			scanline = -1;
 			width = INT_MIN;
@@ -395,6 +355,55 @@ void process_bdf(FILE *bdf, FILE *out, char *name) {
 			}
 		}
 	}
+}
+
+
+//==============================================================================
+//	process bdf font file.
+//==============================================================================
+// Recibe:
+// -- bdf = stream input bdf file.
+// -- out = output stream.
+// -- name font variable name in C source file
+//==============================================================================
+
+void process_bdf(FILE *bdf, FILE *out, char *name) {
+
+	t_bdf_data  bdf_data;
+
+	//unsigned *width_table;
+	//unsigned *encoding_table;
+	unsigned char *bitmap;
+
+	bdf_data = get_bdf_data(bdf);
+	write_bdf_data(out, name, bdf_data);
+
+	if(write_check_errors(bdf_data) > 0)
+		exit(-1); 
+
+	//	Allocate tables
+	//width_table = malloc(bdf_data.nChars * sizeof(*width_table));
+	//if (width_table == NULL) {
+	//	fprintf(stderr, "Malloc allocation failed (width_table var).\n");
+	//	exit(-1);
+	//}
+
+	//encoding_table = malloc(bdf_data.nChars * sizeof(*encoding_table));
+	//if (encoding_table == NULL) {
+	//	fprintf(stderr, "Malloc allocation failed (encoding_table var).\n");
+	//	exit(-1);
+	//}
+
+	bitmap = malloc(((bdf_data.bBox_width + 7) / 8) * bdf_data.bBox_height);
+	if (!bitmap) {
+		fprintf(stderr, "Malloc allocation failed (bitmap var).\n");
+		exit(-1);
+	}
+
+	fprintf(out, "const unsigned char %s_bmp[] = {\n", name);// Begins array.
+
+
+	get_write_char(bdf, out, bdf_data, bitmap);
 
 	fprintf(out, "};\n"); // Cierre de corchete arreglo.
 }
