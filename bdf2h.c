@@ -202,9 +202,10 @@ void write_char(FILE *out, t_settings settings, unsigned char *bitmap,
 				c = bitmap[(y - yoffset) * ((fontwidth + 7) / 8) + x / 8];
 
 			write_char_line_data(out, c, settings);
-			fprintf(out, ",");
+			if(y < fontheight - 1)
+				fprintf(out, ",");
 
-			fprintf(out, "// ");
+			fprintf(out, "\t// ");
 			write_char_line_comment(out, c, settings);
 		}
 		fputc('\n', out);
@@ -385,8 +386,14 @@ void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data,
 			memset(bitmap, 0, ((bdf_data.bBox_width + 7) / 8) * bdf_data.bBox_height);
 		} else if (!strcasecmp(s, "ENDCHAR")) {
 
-			write_char(out, settings, bitmap, bdf_data.bBox_width, bdf_data.bBox_height,
-				bdf_data.bBox_yos, bbh, bby);
+			fprintf(out, "\t{\n");
+			write_char(out, settings, bitmap, bdf_data.bBox_width, 
+				bdf_data.bBox_height, bdf_data.bBox_yos, bbh, bby);
+			fprintf(out, "\t}");
+
+			if(n != bdf_data.nChars)
+				fprintf(out, ",\n");// Coma en todos excepto ultimo.
+
 			scanline = -1;
 			dwidth = INT_MIN;
 		} else {
@@ -455,12 +462,10 @@ void process_bdf(FILE *bdf, FILE *out, t_settings settings) {
 		exit(-1);
 	}
 
-	fprintf(out, "const unsigned char %s_bmp[] = {\n", settings.fontName);// Begins array.
-
-
+	fprintf(out, "const unsigned char %s_bmp[][%d] = {\n", settings.fontName,
+		bdf_data.bBox_height);// Begins array.
 	get_write_char(bdf, out, bdf_data, settings, bitmap);
-
-	fprintf(out, "};\n"); // Cierre de corchete arreglo.
+	fprintf(out, "\n};\n"); // Cierre de corchete arreglo.
 }
 
 
