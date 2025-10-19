@@ -13,13 +13,13 @@ For ubuntu:
 
 -- Abrir fuente con fontforge.
 
--- Si ``elements/bitmap strikes available`` se encuentra greseado, primero haga ``file/generate fonts``.
+-- Si ``elements > bitmap strikes available`` se encuentra greseado, primero haga ``file > generate fonts``.
 
 ### Disminuir la cantidad de caracteres a unicamente ascii de 256.
 
--- ``encoding/reencode/custom``.
+-- ``encoding > reencode > custom``.
 
--- Seleccionar chars mas alla de 0xFF y elminarlas (``edit/clear``). Debe asegurarse que no quede nada, luego ``encoding/remove unused slots``.
+-- Seleccionar chars mas alla de 0xFF y elminarlas (``edit > clear``). Debe asegurarse que no quede nada, luego ``encoding > remove unused slots``.
 
 -- revise que los caracteres ascii esten en sus posiciones, 'a' en 0x61, etc.
 
@@ -28,11 +28,11 @@ For ubuntu:
 -- asegurarse que todos los chars esten completos (aquellos que estan marcados con una cruz no seran generados en el bitmap font y genera un arreglo de menos de 256 caractere). Por ello, para rellenar todos los caracteres puede copiar el caracter "espacio" y pegarlo donde necesite.
 
 -- Todos los chars tienen que tener encoding, por lo que seleccionar todas y hacer:
-encoding > force encoding > windows latin ansi
+``encoding > force encoding > windows latin ansi``
 
 -- Seleccionar "bitmap strikes" e ingresar el alto en pixeles deseado. Ejemplo: 16.
 
--- file > generate fonts, y en el menu cambiar la extension del arhivo a guardar por .bdf
+-- ``file > generate fonts``, y en el menu cambiar la extension del arhivo a guardar por .bdf
 
 -- antes de guardar, seleccionar 16 como altura (o la que deba ser) todas las veces que deba indicarse el tamano.
 
