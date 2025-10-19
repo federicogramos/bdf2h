@@ -1,7 +1,11 @@
 # Description
 Given a BFD font file, it outputs a C .h file with bitmap font definition.
 
-# Requiere instalar fontforge
+# Requires fontforge intallation
+
+If you want to start from a ttf font, you can obtain the .bdf file using fontforge. In ubuntu or mac, fontforge can do the trick.
+
+For ubuntu:
 
 ``sudo apt install fontforge``
 

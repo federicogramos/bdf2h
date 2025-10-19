@@ -104,7 +104,6 @@ t_parse_args parse_args(int argc, char *argv[], t_settings *settings) {
 		NULL	// char *in_filename
 	}; 	
 
-
 	for (i = 1; i < argc; i++) {
 		if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
 			p_args.flag_h = 1;
