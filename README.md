@@ -13,13 +13,13 @@ For ubuntu:
 
 -- Abrir fuente con fontforge.
 
--- Si "elements" -> "bitmap strikes available" se encuentra greseado, primero haga "file" -> "generate fonts".
+-- Si ``elements/bitmap strikes available`` se encuentra greseado, primero haga ``file/generate fonts``.
 
 ### Disminuir la cantidad de caracteres a unicamente ascii de 256.
 
--- "encoding" -> "reencode" -> "custom".
+-- ``encoding/reencode/custom``.
 
--- Seleccionar chars mas alla de 0xFF y elminarlas ("edit" -> "clear"). Debe asegurarse que no quede nada, luego "encoding" -> "remove unused slots".
+-- Seleccionar chars mas alla de 0xFF y elminarlas (``edit/clear``). Debe asegurarse que no quede nada, luego ``encoding/remove unused slots``.
 
 -- revise que los caracteres ascii esten en sus posiciones, 'a' en 0x61, etc.
 
