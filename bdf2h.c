@@ -31,8 +31,8 @@ typedef struct{
 
 typedef struct {
 	int flag_h;
-	char *out_filename;
-	char *in_filename;
+	char *out_fname;
+	char *in_fname;
 }
 t_parse_args;
 
@@ -61,10 +61,10 @@ int main(int argc, char *argv[]) {
 		return 0;
 	}
 
-	if(p_args.in_filename != NULL) {
-		settings.in = fopen(p_args.in_filename, "r");
+	if(p_args.in_fname != NULL) {
+		settings.in = fopen(p_args.in_fname, "r");
 		if(settings.in == NULL) {
-			fprintf(stderr, "Error opening input file %s.\n", p_args.in_filename);
+			fprintf(stderr, "Error opening input file %s.\n", p_args.in_fname);
 			return 0;
 		}
 	}
@@ -74,13 +74,13 @@ int main(int argc, char *argv[]) {
 	}
 
 	if(settings.fontName == NULL) {
-		settings.fontName = strtok(p_args.in_filename, ".");
+		settings.fontName = strtok(p_args.in_fname, ".");
 	}
 
-	if(p_args.out_filename != NULL) {
-		settings.out = fopen(p_args.out_filename, "w");
+	if(p_args.out_fname != NULL) {
+		settings.out = fopen(p_args.out_fname, "w");
 		if(settings.out == NULL) {
-			fprintf(stderr, "Error opening output file %s.\n", p_args.out_filename);
+			fprintf(stderr, "Error opening output file %s.\n", p_args.out_fname);
 			return 0;
 		}
 	} else {
@@ -112,7 +112,7 @@ t_parse_args parse_args(int argc, char *argv[], t_settings *settings) {
 			settings->flag_hex = 1;
 		} else if (strcmp(argv[i], "-o") == 0) {
 			if (i + 1 < argc) {
-				p_args.out_filename = argv[i + 1];
+				p_args.out_fname = argv[i + 1];
 				i++; // Skip filename in next iteration.
 			} else {
 				fprintf(stderr, "Error: -o flag requires a filename.\n");
@@ -120,7 +120,7 @@ t_parse_args parse_args(int argc, char *argv[], t_settings *settings) {
 			}
 		} else if (strcmp(argv[i], "-i") == 0) {
 			if (i + 1 < argc) {
-				p_args.in_filename = argv[i + 1];
+				p_args.in_fname = argv[i + 1];
 				i++; // Skip filename in next iteration.
 			} else {
 				fprintf(stderr, "Error: -i flag requires a filename.\n");
