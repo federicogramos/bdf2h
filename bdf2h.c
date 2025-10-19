@@ -31,7 +31,7 @@ void process_bdf(FILE * bdf, FILE * out, t_settings settings);
 
 
 //==============================================================================
-//
+// TO-DO: agrecar --compact flag para que meta todo un char en el mismo renglon.
 //==============================================================================
 
 int main(int argc, char *argv[]) {
@@ -75,7 +75,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	if(flag_h) {
-		printf("Usage: bdf2h [option(s)]\n");
+		printf("Usage: bdf2h -i <in_bdf_font> -o <out_filename> [option(s)]\n");
 		printf("Converts a font in bdf format to bitmap C array format.\n");
 		printf("-h --help\tThis help text.\n");
 		printf("-i <filename>\tInput font file in bdf format.\n");
