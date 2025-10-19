@@ -25,9 +25,19 @@ typedef struct {
 typedef struct{
 	int flag_hex;
 	char *fontName;
+	FILE *in;
+	FILE *out;
 } t_settings;
 
-void process_bdf(FILE * bdf, FILE * out, t_settings settings);
+typedef struct {
+	int flag_h;
+	char *out_filename;
+	char *in_filename;
+}
+t_parse_args;
+
+void process_bdf(t_settings settings);
+t_parse_args parse_args(int argc, char *argv[], t_settings *settings);
 
 
 //==============================================================================
@@ -35,46 +45,12 @@ void process_bdf(FILE * bdf, FILE * out, t_settings settings);
 //==============================================================================
 
 int main(int argc, char *argv[]) {
-	int flag_h = 0;
-	char *out_filename = NULL, *in_filename = NULL;
-	t_settings settings = {0, NULL};
-	FILE *in, *out;
+	t_settings settings = {0, NULL, NULL, NULL};
+	t_parse_args p_args;
 
-	for (int i = 1; i < argc; i++) {
-		if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
-			flag_h = 1;
-		} else if (strcmp(argv[i], "--hex") == 0) {
-			settings.flag_hex = 1;
-		} else if (strcmp(argv[i], "-o") == 0) {
-			if (i + 1 < argc) {
-				out_filename = argv[i + 1];
-				i++; // Skip filename in next iteration.
-			} else {
-				fprintf(stderr, "Error: -o flag requires a filename.\n");
-				return 1;
-			}
-		} else if (strcmp(argv[i], "-i") == 0) {
-			if (i + 1 < argc) {
-				in_filename = argv[i + 1];
-				i++; // Skip filename in next iteration.
-			} else {
-				fprintf(stderr, "Error: -i flag requires a filename.\n");
-				return 1;
-			}
-		} else if (strcmp(argv[i], "-n") == 0) {
-			if (i + 1 < argc) {
-				settings.fontName = argv[i + 1];
-				i++; // Skip filename in next iteration.
-			} else {
-				fprintf(stderr, "Error: -f flag requires a fontName.\n");
-				return 1;
-			}
-		} else {
-			printf("Unknown argument: %s\n", argv[i]);
-		}
-	}
+	p_args = parse_args(argc, argv, &settings);
 
-	if(flag_h) {
+	if(p_args.flag_h) {
 		printf("Usage: bdf2h -i <in_bdf_font> -o <out_filename> [option(s)]\n");
 		printf("Converts a font in bdf format to bitmap C array format.\n");
 		printf("-h --help\tThis help text.\n");
@@ -85,10 +61,10 @@ int main(int argc, char *argv[]) {
 		return 0;
 	}
 
-	if(in_filename != NULL) {
-		in = fopen(in_filename, "r");
-		if(in == NULL) {
-			fprintf(stderr, "Error opening input file %s.\n", in_filename);
+	if(p_args.in_filename != NULL) {
+		settings.in = fopen(p_args.in_filename, "r");
+		if(settings.in == NULL) {
+			fprintf(stderr, "Error opening input file %s.\n", p_args.in_filename);
 			return 0;
 		}
 	}
@@ -98,21 +74,71 @@ int main(int argc, char *argv[]) {
 	}
 
 	if(settings.fontName == NULL) {
-		settings.fontName = strtok(in_filename, ".");
+		settings.fontName = strtok(p_args.in_filename, ".");
 	}
 
-	if(out_filename != NULL) {
-		out = fopen(out_filename, "w");
-		if(out == NULL) {
-			fprintf(stderr, "Error opening output file %s.\n", out_filename);
+	if(p_args.out_filename != NULL) {
+		settings.out = fopen(p_args.out_filename, "w");
+		if(settings.out == NULL) {
+			fprintf(stderr, "Error opening output file %s.\n", p_args.out_filename);
 			return 0;
 		}
 	} else {
-		out = stdout;
+		settings.out = stdout;
 	}
 
-	process_bdf(in, out, settings);
+	process_bdf(settings);
 	return 0;
+}
+
+
+//==============================================================================
+//
+//==============================================================================
+
+t_parse_args parse_args(int argc, char *argv[], t_settings *settings) {
+	int i;
+	t_parse_args p_args = {
+		0,		// int flag_h
+		NULL,	// char *out_filename
+		NULL	// char *in_filename
+	}; 	
+
+
+	for (i = 1; i < argc; i++) {
+		if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
+			p_args.flag_h = 1;
+		} else if (strcmp(argv[i], "--hex") == 0) {
+			settings->flag_hex = 1;
+		} else if (strcmp(argv[i], "-o") == 0) {
+			if (i + 1 < argc) {
+				p_args.out_filename = argv[i + 1];
+				i++; // Skip filename in next iteration.
+			} else {
+				fprintf(stderr, "Error: -o flag requires a filename.\n");
+				exit(-1);
+			}
+		} else if (strcmp(argv[i], "-i") == 0) {
+			if (i + 1 < argc) {
+				p_args.in_filename = argv[i + 1];
+				i++; // Skip filename in next iteration.
+			} else {
+				fprintf(stderr, "Error: -i flag requires a filename.\n");
+				exit(-1);
+			}
+		} else if (strcmp(argv[i], "-n") == 0) {
+			if (i + 1 < argc) {
+				settings->fontName = argv[i + 1];
+				i++; // Skip filename in next iteration.
+			} else {
+				fprintf(stderr, "Error: -f flag requires a fontName.\n");
+				exit(-1);
+			}
+		} else {
+			printf("Unknown argument: %s\n", argv[i]);
+		}
+	}
+	return p_args;
 }
 
 
@@ -125,17 +151,18 @@ int main(int argc, char *argv[]) {
 // -- t_bdf_data bdf_data
 //==============================================================================
 
-void write_bdf_data(FILE *out, t_settings settings, t_bdf_data bdf_data) {
+void write_bdf_data(t_settings settings, t_bdf_data bdf_data) {
 
-	fprintf(out, "// Bitmap font info struct def.\n");
-	fprintf(out, "typedef struct {\n");
-	fprintf(out, "\tint width;\n");
-	fprintf(out, "\tint height;\n");
-	fprintf(out, "\tint nChars;\n");
-	fprintf(out, "} bmp_font_inf;\n\n");
+	fprintf(settings.out, "// Bitmap font info struct def.\n");
+	fprintf(settings.out, "typedef struct {\n");
+	fprintf(settings.out, "\tint width;\n");
+	fprintf(settings.out, "\tint height;\n");
+	fprintf(settings.out, "\tint nChars;\n");
+	fprintf(settings.out, "} bmp_font_inf;\n\n");
 
-	fprintf(out, "bmp_font_inf %s_inf = { %d, %d, %d };\n\n", settings.fontName, 
-		bdf_data.bBox_width, bdf_data.bBox_height, bdf_data.nChars);
+	fprintf(settings.out, "bmp_font_inf %s_inf = { %d, %d, %d };\n\n", 
+		settings.fontName, bdf_data.bBox_width, bdf_data.bBox_height, 
+		bdf_data.nChars);
 }
 
 
@@ -143,12 +170,12 @@ void write_bdf_data(FILE *out, t_settings settings, t_bdf_data bdf_data) {
 // write_char_comment | outputs 1 line of 1 bitmap character
 //==============================================================================
 
-void write_char_line_comment(FILE *out, char c, t_settings settings) {
+void write_char_line_comment(char c, t_settings settings) {
 	int i = 8;
 
 	while(i > 0) {
 		i--;
-		(c & 0x01 << i)? fputc('#', out) : fputc('-', out);
+		(c & 0x01 << i)? fputc('#', settings.out) : fputc('-', settings.out);
 	}
 }
 
@@ -156,7 +183,7 @@ void write_char_line_comment(FILE *out, char c, t_settings settings) {
 // write_char_line | outputs 1 line of 1 bitmap character
 //==============================================================================
 
-void write_char_line_data(FILE *out, char c, t_settings settings) {
+void write_char_line_data(char c, t_settings settings) {
 	int i;
 
 	if(settings.flag_hex) {
@@ -166,11 +193,11 @@ void write_char_line_data(FILE *out, char c, t_settings settings) {
 			if(c & 0x01 << i)
 				rev_c |= 0x01 << (7 - i);
 		}
-		fprintf(out, "0x%02x", rev_c);
+		fprintf(settings.out, "0x%02x", rev_c);
 	} else {
-		fprintf(out, "0b");
+		fprintf(settings.out, "0b");
 		for(i = 0; i < 8; i++) {
-			(c & 0x01 << i)? fputc('1', out) : fputc('0', out);
+			(c & 0x01 << i)? fputc('1', settings.out) : fputc('0', settings.out);
 		}
 	}
 }
@@ -180,8 +207,8 @@ void write_char_line_data(FILE *out, char c, t_settings settings) {
 // write_char | output based on font info
 //==============================================================================
 
-void write_char(FILE *out, t_settings settings, unsigned char *bitmap,
-	int fontwidth, int fontheight, int fontyoffset, int charheight,
+void write_char(t_settings settings, unsigned char *bitmap, int fontwidth, 
+	int fontheight, int fontyoffset, int charheight,
 	int charyoffset) {
 
 	int x;
@@ -192,7 +219,7 @@ void write_char(FILE *out, t_settings settings, unsigned char *bitmap,
 	int yoffset = fontheight - charheight + (fontyoffset - charyoffset);
 
 	for (y = 0; y < fontheight; y++) {
-		fputc('\t', out);
+		fputc('\t', settings.out);
 		for (x = 0; x < fontwidth; x += 8) {
 
 			// If current row is above or below the bitmap, output a blank row.
@@ -201,14 +228,15 @@ void write_char(FILE *out, t_settings settings, unsigned char *bitmap,
 			else
 				c = bitmap[(y - yoffset) * ((fontwidth + 7) / 8) + x / 8];
 
-			write_char_line_data(out, c, settings);
-			if(y < fontheight - 1)
-				fprintf(out, ",");
+			write_char_line_data(c, settings);
 
-			fprintf(out, "\t// ");
-			write_char_line_comment(out, c, settings);
+			if(y < fontheight - 1)
+				fprintf(settings.out, ",");
+
+			fprintf(settings.out, "\t// ");
+			write_char_line_comment(c, settings);
 		}
-		fputc('\n', out);
+		fputc('\n', settings.out);
 	}
 }
 
@@ -304,8 +332,8 @@ t_bdf_data get_bdf_data(FILE *bdf) {
 // get_write_char | parses font and writes to output file
 //==============================================================================
 
-void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data,
-	t_settings settings, unsigned char *bitmap) {
+void get_write_char(t_bdf_data bdf_data, t_settings settings, 
+	unsigned char *bitmap) {
 
 	int i, j;
 	char *s, *p;
@@ -331,7 +359,7 @@ void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data,
 	strcpy(charname, "unknown character");
 
 	while (1) {
-		if (!fgets(buff, sizeof(buff), bdf))
+		if (!fgets(buff, sizeof(buff), settings.in))
 			break;// EOF.
 
 		if (!(s = strtok(buff, " \t\n\r")))
@@ -356,7 +384,9 @@ void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data,
 			p = strtok(NULL, " \t\n\r");
 			bby = atoi(p);
 		} else if (!strcasecmp(s, "BITMAP")) {
-			fprintf(out, "// %03d 0x%02x '%s'\n", encoding, encoding, charname);
+			fprintf(settings.out, "// %03d 0x%02x '%s'\n", encoding, encoding, 
+				charname);
+
 			//fprintf(out, "// dwidth %d, bbx %d, bby %d, bbw %d, bbh %d\n",
 			//dwidth, bbx, bby, bbw, bbh);
 
@@ -386,13 +416,13 @@ void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data,
 			memset(bitmap, 0, ((bdf_data.bBox_width + 7) / 8) * bdf_data.bBox_height);
 		} else if (!strcasecmp(s, "ENDCHAR")) {
 
-			fprintf(out, "\t{\n");
-			write_char(out, settings, bitmap, bdf_data.bBox_width, 
+			fprintf(settings.out, "\t{\n");
+			write_char(settings, bitmap, bdf_data.bBox_width, 
 				bdf_data.bBox_height, bdf_data.bBox_yos, bbh, bby);
-			fprintf(out, "\t}");
+			fprintf(settings.out, "\t}");
 
 			if(n != bdf_data.nChars)
-				fprintf(out, ",\n");// Coma en todos excepto ultimo.
+				fprintf(settings.out, ",\n");// Coma en todos excepto ultimo.
 
 			scanline = -1;
 			dwidth = INT_MIN;
@@ -429,7 +459,7 @@ void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data,
 // -- settings = structure with program settings configured.
 //==============================================================================
 
-void process_bdf(FILE *bdf, FILE *out, t_settings settings) {
+void process_bdf(t_settings settings) {
 
 	t_bdf_data  bdf_data;
 
@@ -437,8 +467,8 @@ void process_bdf(FILE *bdf, FILE *out, t_settings settings) {
 	//unsigned *encoding_table;
 	unsigned char *bitmap;
 
-	bdf_data = get_bdf_data(bdf);
-	write_bdf_data(out, settings, bdf_data);
+	bdf_data = get_bdf_data(settings.in);
+	write_bdf_data(settings, bdf_data);
 
 	if(write_check_errors(bdf_data) > 0)
 		exit(-1); 
@@ -462,10 +492,10 @@ void process_bdf(FILE *bdf, FILE *out, t_settings settings) {
 		exit(-1);
 	}
 
-	fprintf(out, "const unsigned char %s_bmp[][%d] = {\n", settings.fontName,
+	fprintf(settings.out, "const unsigned char %s_bmp[][%d] = {\n", settings.fontName,
 		bdf_data.bBox_height);// Begins array.
-	get_write_char(bdf, out, bdf_data, settings, bitmap);
-	fprintf(out, "\n};\n"); // Cierre de corchete arreglo.
+	get_write_char(bdf_data, settings, bitmap);
+	fprintf(settings.out, "\n};\n"); // Cierre de corchete arreglo.
 }
 
 
