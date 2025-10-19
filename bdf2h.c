@@ -159,8 +159,19 @@ void write_char_line_comment(FILE *out, char c, t_settings settings) {
 void write_char_line_data(FILE *out, char c, t_settings settings) {
 	int i;
 
-	for(i = 0; i < 8; i++) {
-		(c & 0x01 << i)? fputc('1', out) : fputc('0', out);
+	if(settings.flag_hex) {
+		unsigned char rev_c = 0;
+
+		for(i = 0; i < 8; i++) {
+			if(c & 0x01 << i)
+				rev_c |= 0x01 << (7 - i);
+		}
+		fprintf(out, "0x%02x", rev_c);
+	} else {
+		fprintf(out, "0b");
+		for(i = 0; i < 8; i++) {
+			(c & 0x01 << i)? fputc('1', out) : fputc('0', out);
+		}
 	}
 }
 
@@ -190,7 +201,6 @@ void write_char(FILE *out, t_settings settings, unsigned char *bitmap,
 			else
 				c = bitmap[(y - yoffset) * ((fontwidth + 7) / 8) + x / 8];
 
-			fprintf(out, "0b");
 			write_char_line_data(out, c, settings);
 			fprintf(out, ",");
 
