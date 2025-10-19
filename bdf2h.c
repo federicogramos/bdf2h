@@ -160,7 +160,7 @@ void write_char_line_data(FILE *out, char c, t_settings settings) {
 	int i;
 
 	for(i = 0; i < 8; i++) {
-		(c & 0x01 << i)? fputc('#', out) : fputc('-', out);
+		(c & 0x01 << i)? fputc('1', out) : fputc('0', out);
 	}
 }
 
@@ -190,12 +190,12 @@ void write_char(FILE *out, t_settings settings, unsigned char *bitmap,
 			else
 				c = bitmap[(y - yoffset) * ((fontwidth + 7) / 8) + x / 8];
 
+			fprintf(out, "0b");
 			write_char_line_data(out, c, settings);
-			fputc(',', out);
+			fprintf(out, ",");
 
 			fprintf(out, "// ");
 			write_char_line_comment(out, c, settings);
-
 		}
 		fputc('\n', out);
 	}
@@ -309,14 +309,14 @@ void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data,
 	int bby;
 	int bbw;
 	int bbh;
-	int width;
+	int dwidth;
 
 	encoding = -1;
 	bbx = 0;
 	bby = 0;
 	bbw = 0;
 	bbh = 0;
-	width = INT_MIN;
+	dwidth = INT_MIN;
 	strcpy(charname, "unknown character");
 
 	while (1) {
@@ -334,7 +334,7 @@ void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data,
 			encoding = atoi(p);
 		} else if (!strcasecmp(s, "DWIDTH")) {
 			p = strtok(NULL, " \t\n\r");
-			width = atoi(p);
+			dwidth = atoi(p);
 		} else if (!strcasecmp(s, "BBX")) {
 			p = strtok(NULL, " \t\n\r");
 			bbw = atoi(p);
@@ -346,25 +346,25 @@ void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data,
 			bby = atoi(p);
 		} else if (!strcasecmp(s, "BITMAP")) {
 			fprintf(out, "// %03d 0x%02x '%s'\n", encoding, encoding, charname);
-			fprintf(out, "//\twidth %d, bbx %d, bby %d, bbw %d, bbh %d\n",
-			width, bbx, bby, bbw, bbh);
+			//fprintf(out, "// dwidth %d, bbx %d, bby %d, bbw %d, bbh %d\n",
+			//dwidth, bbx, bby, bbw, bbh);
 
 			if (n == bdf_data.nChars) {
 				fprintf(stderr, 
 					"Error: bdf metadata declares less chars han actually inside.\n");
 				exit(-1);
 			}
-			if (width == INT_MIN) {
-				fprintf(stderr, "Char width not specified.\n");
+			if (dwidth == INT_MIN) {
+				fprintf(stderr, "Char dwidth not specified.\n");
 				exit(-1);
 			}
 
 			if (bbx < 0) {
-				width -= bbx;//	Width adjustment.
+				dwidth -= bbx;//	Width adjustment.
 				bbx = 0;
 			}
-			if (bbx + bbw > width)
-				width = bbx + bbw;
+			if (bbx + bbw > dwidth)
+				dwidth = bbx + bbw;
 
 			//width_table[n] = width;// No width table, will use monospace.
 			//encoding_table[n] = encoding;// Will not use an encoding table.
@@ -378,7 +378,7 @@ void get_write_char(FILE *bdf, FILE *out, t_bdf_data bdf_data,
 			write_char(out, settings, bitmap, bdf_data.bBox_width, bdf_data.bBox_height,
 				bdf_data.bBox_yos, bbh, bby);
 			scanline = -1;
-			width = INT_MIN;
+			dwidth = INT_MIN;
 		} else {
 			if (scanline >= 0) {
 				p = s;
