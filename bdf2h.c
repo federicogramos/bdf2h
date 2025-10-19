@@ -140,11 +140,25 @@ void write_bdf_data(FILE *out, t_settings settings, t_bdf_data bdf_data) {
 
 
 //==============================================================================
+// write_char_line | outputs 1 line of 1 bitmap character
+//==============================================================================
+
+void write_char_line(FILE *out, char c) {
+	int i;
+
+	for(i = 0; i < 8; i++) {
+		(c & 0x01 << i)? fputc('#', out) : fputc('-', out);
+	}
+}
+
+
+//==============================================================================
 // write_char | output based on font info
 //==============================================================================
 
-void write_char(FILE *out, t_settings settings, unsigned char *bitmap, int fontwidth,
-	int fontheight, int fontyoffset, int charheight, int charyoffset) {
+void write_char(FILE *out, t_settings settings, unsigned char *bitmap,
+	int fontwidth, int fontheight, int fontyoffset, int charheight,
+	int charyoffset) {
 
 	int x;
 	int y;
@@ -163,47 +177,8 @@ void write_char(FILE *out, t_settings settings, unsigned char *bitmap, int fontw
 			else
 				c = bitmap[(y - yoffset) * ((fontwidth + 7) / 8) + x / 8];
 
-			if (c & 0x80)
-				fputc('#', out);
-			else
-				fputc('-', out);
-
-			if (c & 0x40)
-				fputc('#', out);
-			else
-				fputc('-', out);
-
-			if (c & 0x20)
-				fputc('#', out);
-			else
-				fputc('-', out);
-
-			if (c & 0x10)
-				fputc('#', out);
-			else
-				fputc('-', out);
-
-			if (c & 0x08)
-				fputc('#', out);
-			else
-				fputc('-', out);
-
-			if (c & 0x04)
-				fputc('#', out);
-			else
-				fputc('-', out);
-
-			if (c & 0x02)
-				fputc('#', out);
-			else
-				fputc('-', out);
-
-			if (c & 0x01)
-				fputc('#', out);
-			else
-				fputc('-', out);
-
-				fputc(',', out);
+			write_char_line(out, c);
+			fputc(',', out);
 		}
 		fputc('\n', out);
 	}
