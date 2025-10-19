@@ -140,10 +140,23 @@ void write_bdf_data(FILE *out, t_settings settings, t_bdf_data bdf_data) {
 
 
 //==============================================================================
+// write_char_comment | outputs 1 line of 1 bitmap character
+//==============================================================================
+
+void write_char_line_comment(FILE *out, char c, t_settings settings) {
+	int i = 8;
+
+	while(i > 0) {
+		i--;
+		(c & 0x01 << i)? fputc('#', out) : fputc('-', out);
+	}
+}
+
+//==============================================================================
 // write_char_line | outputs 1 line of 1 bitmap character
 //==============================================================================
 
-void write_char_line(FILE *out, char c) {
+void write_char_line_data(FILE *out, char c, t_settings settings) {
 	int i;
 
 	for(i = 0; i < 8; i++) {
@@ -177,8 +190,12 @@ void write_char(FILE *out, t_settings settings, unsigned char *bitmap,
 			else
 				c = bitmap[(y - yoffset) * ((fontwidth + 7) / 8) + x / 8];
 
-			write_char_line(out, c);
+			write_char_line_data(out, c, settings);
 			fputc(',', out);
+
+			fprintf(out, "// ");
+			write_char_line_comment(out, c, settings);
+
 		}
 		fputc('\n', out);
 	}
