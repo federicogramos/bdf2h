@@ -15,9 +15,9 @@ For ubuntu:
 
 ### Disminuir la cantidad de caracteres a unicamente ascii de 256.
 
--- ``encoding > reencode > custom``.
+-- ``encoding > reencode > custom`` (ansi tambien es una opcion posible).
 
--- Seleccionar chars mas alla de 0xFF y elminarlas (``edit > clear``). Debe asegurarse que no quede nada, luego ``encoding > remove unused slots``. En ocasiones tambien es necesario hacer ``encoding > detach glymphs`` (con las seleccionadas unicamente).
+-- Seleccionar chars mas alla de 0xFF y elminarlas haciendo (``edit > clear``). Debe asegurarse que no quede nada, luego ``encoding > remove unused slots``. En ocasiones tambien es necesario hacer ``encoding > detach glymphs`` (con las seleccionadas unicamente).
 
 -- Si no se eliminan los chars que se quieren eliminar, revisar nuevamente el encoding que se encuentre en "custom" puesto que con algunas acciones puede restaurarse uno diferente.
 
