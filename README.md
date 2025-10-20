@@ -13,8 +13,6 @@ For ubuntu:
 
 -- Abrir fuente con fontforge.
 
--- Si ``elements > bitmap strikes available`` se encuentra griseado, primero haga ``file > generate fonts``.
-
 ### Disminuir la cantidad de caracteres a unicamente ascii de 256.
 
 -- ``encoding > reencode > custom``.
@@ -32,7 +30,11 @@ For ubuntu:
 -- Todos los chars tienen que tener encoding, por lo que seleccionar todas y hacer:
 ``encoding > force encoding > windows latin ansi``
 
+-- Si ``elements > bitmap strikes available`` se encuentra griseado, primero haga ``file > generate fonts``.
+
 -- Seleccionar "bitmap strikes" e ingresar el alto en pixeles deseado. Ejemplo: 16.
+
+Sugerencia: a veces una fuente pasada a bitmap usando bitmap-strike = 16 queda con ancho > 8px pero si prueba usar otro valor de bitmap-strike < 16 queda con el valor ancho = 8px que es bastante cómodo para generar los barridos de cada caracter. 
 
 -- ``file > generate fonts``, y en el menu cambiar la extension del arhivo a guardar por .bdf
 
