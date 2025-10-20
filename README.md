@@ -50,7 +50,7 @@ Con la fuente ya generada como bitmap puede, si es que quiere, hacer una edicion
 
 -- Va a generar un archivo con nombre xxxxx-16.bdf
 
--- Por último: use el programa bdf2h.
+-- Por último: use el programa bdf2h:
 ``./bdf2h -i xxxxx-16.bdf -o output.h --hex``
 
 ### Ajustes finales
