@@ -44,3 +44,7 @@ Sugerencia: a veces una fuente pasada a bitmap usando bitmap-strike = 16 queda c
 
 -- Por último: use el programa bdf2h.
 ``./bdf2h -i xxxxx-16.bdf -o output.h --hex``
+
+### Ajustes finales
+
+Es posible hacer ajustes del header generado directamente abriendo el archivo .bdf con un editor de texto y ajustando los parametros que alli define.
