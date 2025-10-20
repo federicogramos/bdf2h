@@ -21,7 +21,7 @@ For ubuntu:
 
 -- Si no se eliminan los chars que se quieren eliminar, revisar nuevamente el encoding que se encuentre en "custom" puesto que con algunas acciones puede restaurarse uno diferente.
 
--- Revise que los caracteres ascii esten en sus posiciones, 'a' en 0x61, etc.
+-- Nunca está de mas revisar que los caracteres ascii esten en sus posiciones, 'a' en 0x61, etc.
 
 ### Rellenar aquellos caracteres donde se vea una "X"
 
