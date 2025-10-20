@@ -21,7 +21,7 @@ For ubuntu:
 
 -- Si no se eliminan los chars que se quieren eliminar, revisar nuevamente el encoding que se encuentre en "custom" puesto que con algunas acciones puede restaurarse uno diferente.
 
--- revise que los caracteres ascii esten en sus posiciones, 'a' en 0x61, etc.
+-- Revise que los caracteres ascii esten en sus posiciones, 'a' en 0x61, etc.
 
 -- Recomendacion: guardar el archivo en formato propio del fontforge (.sfd) como backup luego de haber reducido a 256 los chars.
 
@@ -38,6 +38,10 @@ Sugerencia: a veces una fuente pasada a bitmap usando bitmap-strike = 16 queda c
 
 -- ``file > generate fonts``, y en el menu cambiar la extension del arhivo a guardar por .bdf
 
--- antes de guardar, seleccionar 16 como altura (o la que deba ser) todas las veces que deba indicarse el tamano.
+-- Antes de guardar, seleccionar 16 como altura (o la que deba ser) todas las veces que deba indicarse el tamano.
 
--- va a generar un archivo con nombre xxxxx-16.bdf
+-- Va a generar un archivo con nombre xxxxx-16.bdf
+
+-- Por último: use el programa bdf2h.
+
+``./bdf2h -i xxxxx-16.bdf -o output.h --hex``
