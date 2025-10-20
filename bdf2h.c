@@ -4,14 +4,14 @@
 // Bitmap Distribution Format (BDF) stores a bitmap font. This will convert it t
 // o a C header file.
 // Uso:
-// ./bdf2h < input.bdf > out.h
+// ./bdf2h -i <in_bdf_font> -o <out_filename> [option(s)]
 //==============================================================================
 
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <limits.h>
+#include <limits.h>bdf
 
 
 typedef struct {
@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
 	p_args = parse_args(argc, argv, &settings);
 
 	if(p_args.flag_h) {
-		printf("Usage: bdf2h -i <in_bdf_font> -o <out_filename> [option(s)]\n");
+		printf("Usage: ./bdf2h -i <in_bdf_font> -o <out_filename> [option(s)]\n");
 		printf("Converts a font in bdf format to bitmap C array format.\n");
 		printf("-h --help\tThis help text.\n");
 		printf("-i <filename>\tInput font file in bdf format.\n");
