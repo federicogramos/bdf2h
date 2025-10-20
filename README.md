@@ -13,7 +13,7 @@ For ubuntu:
 
 -- Abrir fuente con fontforge.
 
--- Si ``elements > bitmap strikes available`` se encuentra greseado, primero haga ``file > generate fonts``.
+-- Si ``elements > bitmap strikes available`` se encuentra griseado, primero haga ``file > generate fonts``.
 
 ### Disminuir la cantidad de caracteres a unicamente ascii de 256.
 
