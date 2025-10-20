@@ -28,7 +28,7 @@ For ubuntu:
 -- Todos los chars tienen que tener encoding, por lo que seleccionar todas y hacer:
 ``encoding > force encoding > windows latin ansi``
 
--- asegurarse que todos los chars esten completos (aquellos que estan marcados con una cruz no seran generados en el bitmap font y genera un arreglo de menos de 256 caractere). Por ello, para rellenar todos los caracteres puede copiar el caracter "espacio" y pegarlo donde necesite.
+-- asegurarse que todos los chars esten completos (aquellos que estan marcados con una cruz no seran generados en el bitmap font y genera un arreglo de menos de 256 caracteres). Por ello, para rellenar todos los caracteres puede copiar el caracter "espacio" y pegarlo donde necesite.
 
 -- Recomendacion: guardar el archivo en formato propio del fontforge (.sfd) como backup luego de haber reducido a 256 los chars y rellenar los huecos. Una vez guardado, cerrar fontforge y volver a abrirlo usando el recien guardado .sfd y volver a revisar que ningun caracter tenga "X" (vacío). Llegado el caso, rellenar ese char.
 
